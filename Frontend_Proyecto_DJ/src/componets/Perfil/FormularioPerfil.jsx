@@ -1,17 +1,20 @@
 import { useContext, useState } from "react"
 import AuthContext from "../../context/AuthProvider"
+import Mensaje from "../Alertas/Mensaje"
 
 
 const FormularioPerfil = () => {
-    const { mensaje,setMensaje } = useState({})
     const { auth, actualizarPerfil } = useContext(AuthContext)
+    const [mensaje, setMensaje] = useState({})
+
     const [form, setform] = useState({
         id: auth._id,
         nombre: auth.nombre || "",
         apellido: auth.apellido || "",
         direccion: auth.direccion || "",
         telefono: auth.telefono || "",
-        email: auth.email || ""
+        email: auth.email || "",
+        descripcion: auth.descripcion || ""
     })
 
     const handleChange = (e) => {
@@ -41,6 +44,7 @@ const FormularioPerfil = () => {
     
     return (
         <form onSubmit={handleSubmit}>
+            {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
             <div>
                 <label
                     htmlFor='nombre'
@@ -112,6 +116,21 @@ const FormularioPerfil = () => {
                     placeholder='email'
                     name='email'
                     value={form.email}
+                    onChange={handleChange}
+                />
+            </div>
+
+            <div>
+                <label
+                    htmlFor='descripcion'
+                    className='text-gray-700 uppercase font-bold text-sm'>Descripción: </label>
+                <input
+                    id='descripcion'
+                    type="text"
+                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
+                    placeholder='descripción'
+                    name='descripcion'
+                    value={form.descripcion}
                     onChange={handleChange}
                 />
             </div>

@@ -52,7 +52,8 @@ const login = async (req, res) => {
         telefono,
         descripcion,
         _id,
-        email: administradorBDD.email
+        email: administradorBDD.email,
+        rol:"Administrador"
     })
 }
 
@@ -62,6 +63,7 @@ const perfil =(req,res)=>{
     delete req.administradorBDD.createdAt
     delete req.administradorBDD.updatedAt
     delete req.administradorBDD.__v
+    req.administradorBDD.rol = "Administrador"
     res.status(200).json(req.administradorBDD)
 }
 

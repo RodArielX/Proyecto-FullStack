@@ -26,6 +26,9 @@ export const CardPerfil = () => {
             <div className="self-start">
                 <b>Email:</b><p className="inline-block ml-3">{auth.email}</p>
             </div>
+            <div className="self-start">
+                <b>Descripción:</b><p className="inline-block ml-3">{auth.descripcion}</p>
+            </div>
         </div>
     )
 }

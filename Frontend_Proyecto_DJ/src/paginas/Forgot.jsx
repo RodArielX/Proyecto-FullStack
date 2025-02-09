@@ -2,33 +2,37 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
 import Mensaje from '../componets/Alertas/Mensaje';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 export const Forgot = () => {
 
     // Paso 1
-    const [mail, setMail] = useState({})
+    const [email, setMail] = useState({})
 
     // Paso 2
     const handleChange = (e) => {
       setMail({
-        ...mail,
+        ...email,
         [e.target.name]:e.target.value
       })
     }
     
-
 
     // Paso 3
     const handleSubmit = async(e) => {
       e.preventDefault()
       try {
         const url =`${import.meta.env.VITE_BACKEND_URL}/recuperar-password`
-        const respuesta = await axios.post(url, mail)
+        const respuesta = await axios.post(url, email)
         console.log(respuesta)
+        toast.success(respuesta.data.msg)
+        setMail("")
         
       } catch (error) {
         console.log(error)
+        toast.error(respuesta.data.msg)
+
       }
     }
     
@@ -36,6 +40,7 @@ export const Forgot = () => {
     // Paso 4
     return (
       <>
+          <ToastContainer/>
           <div className="h-screen w-full bg-[url('/images/RecuperarContraseña_DJ.jpg')] bg-no-repeat bg-cover bg-center flex flex-col">
               <header className="w-full flex justify-between items-center p-4 absolute top-0 left-0">
                   <Link to="/" className="text-white text-xl font-bold">

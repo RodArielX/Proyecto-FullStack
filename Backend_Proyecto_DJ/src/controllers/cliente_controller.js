@@ -69,7 +69,9 @@ const loginCliente = async (req, res) => {
         direccion,
         ciudad,
         _id,
-        email: clienteBDD.email
+        email: clienteBDD.email,
+        rol:"Cliente"
+
     });
 }
 
@@ -83,6 +85,7 @@ const perfilCliente = (req, res) => {
     delete req.clienteBDD.createdAt
     delete req.clienteBDD.updatedAt
     delete req.clienteBDD.__v
+    req.clienteBDD.rol = "Cliente"
 
     res.status(200).json(req.clienteBDD)
 }

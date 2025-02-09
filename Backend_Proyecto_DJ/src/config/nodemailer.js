@@ -25,7 +25,7 @@ const sendMailToRecoveryPassword = async (userMail, token, isAdmin = true) => {
         <h1>Recupera tu contraseña</h1>
         <p>Hola, hemos recibido una solicitud para recuperar tu contraseña en el sistema de gestión de Edwin DJ.</p>
         <p>Si fuiste tú quien hizo esta solicitud, haz clic en el siguiente enlace para restablecer tu contraseña:</p>
-        <a href="https://backend-proyecto-dj.vercel.app/api/${url}/${token}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Restablecer contraseña</a>
+        <a href="${process.env.URL_FRONTEND}recuperar-password/${token}" style="background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Restablecer contraseña</a>
         <p>Si no solicitaste este cambio, puedes ignorar este correo. No se realizarán cambios en tu cuenta.</p>
         <hr>
         <footer>

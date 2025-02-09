@@ -7,6 +7,11 @@ const clienteSchema = new Schema({
         required: true,
         trim: true
     },
+    apellido: {
+        type: String,
+        required: true,
+        trim: true
+    },
     email: {
         type: String,
         required: true,

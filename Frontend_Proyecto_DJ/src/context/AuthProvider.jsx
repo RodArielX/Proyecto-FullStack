@@ -4,9 +4,6 @@ import { Children, createContext, useEffect, useState } from 'react'
 // Creación del grupo de WhatsApp (AuthContext)
 const AuthContext = createContext()
 
-
-
-
 // Crear el mensaje(AuthProvider) // Integrantes (children)
 const AuthProvider = ({ children }) => {
 
@@ -44,7 +41,7 @@ const AuthProvider = ({ children }) => {
     const actualizarPerfil = async (datos) => {
         const token = localStorage.getItem('token')
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/veterinario/${datos.id}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/admin/actualizarperfil/${datos.id}`
             const options = {
                 headers: {
                     method: 'PUT',
@@ -63,7 +60,7 @@ const AuthProvider = ({ children }) => {
     const actualizarPassword = async (datos) => {
         const token = localStorage.getItem('token')
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/veterinario/actualizarpassword`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/admin/actualizarpassword`
             const options = {
                 headers: {
                     method: 'PUT',

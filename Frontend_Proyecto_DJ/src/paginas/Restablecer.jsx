@@ -3,10 +3,12 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import logoDog from '../assets/dog-hand.webp'
+import {useNavigate}from 'react-router-dom'
 
 export default function Restablecer() {
 
     // Paso 1
+    const navigate = useNavigate()
     const { token } = useParams()
     const [tokenback, setTokenback] = useState(false)
     const [form, setForm] = useState({
@@ -14,10 +16,7 @@ export default function Restablecer() {
         confirmpassword: ""
     })
 
-
-
     // Paso2
-
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -27,7 +26,6 @@ export default function Restablecer() {
     }
 
     // Paso 3
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -89,7 +87,9 @@ export default function Restablecer() {
                         />
                     </div>
                     <div className="mb-3">
-                        <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Send
+                        <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Enviar
+                        </button>
+                        <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white" onClick={()=>{navigate("/login")}}>Iniciar Sesión
                         </button>
                     </div>
                 </form>

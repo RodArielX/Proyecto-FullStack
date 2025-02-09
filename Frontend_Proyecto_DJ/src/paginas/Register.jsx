@@ -14,7 +14,6 @@ export const Register = () => {
         direccion: "",
         telefono: "",
         email: "",
-        password: ""
     })
 
     const [mensaje, setMensaje] = useState({})
@@ -32,7 +31,7 @@ export const Register = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
-            const url ="http://localhost:3000/api/cliente/registro"
+            const url =`${import.meta.env.VITE_BACKEND_URL}/cliente/registro`
             const respuesta = await axios.post(url,form)
             console.log(respuesta);
 
@@ -103,12 +102,6 @@ export const Register = () => {
                                 placeholder="Ingresa tu email" className="block w-full rounded-md border border-gray-300 focus:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-700 py-1 px-1.5 text-gray-500" required />
                         </div>
 
-                        <div className="mb-3">
-                            <label className="mb-2 block text-sm font-semibold" htmlFor="password">Contraseña:</label>
-                            <input type="password" id="password" name='password'
-                                value={form.password || ""} onChange={handleChange}
-                                placeholder="********************" className="block w-full rounded-md border border-gray-300 focus:border-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-700 py-1 px-1.5 text-gray-500" required />
-                        </div>
 
                         <div className="mb-3">
                             <button className="bg-gray-500 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Registrate ahora

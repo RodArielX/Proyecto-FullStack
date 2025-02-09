@@ -51,9 +51,9 @@ const Password = () => {
     return (
         <>
         <div className='mt-5'>
-                <h1 className='font-black text-4xl text-gray-500'>Password</h1>
+                <h1 className='font-black text-4xl text-gray-500'>Contraseña</h1>
                 <hr className='my-4' />
-                <p className='mb-2'>Este módulo te permite actualizar el password del veterinario</p>
+                <p className='mb-2'>Este módulo te permite actualizar la contraseña del Administrador</p>
         </div>
         <form  onSubmit={handleSubmit}>
         {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
@@ -62,7 +62,7 @@ const Password = () => {
             <div>
                 <label
                     htmlFor='passwordactual'
-                    className='text-gray-700 uppercase font-bold text-sm'>Password actual: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Contraseña actual: </label>
                 <input
                     id='passwordactual'
                     type="password"
@@ -77,7 +77,7 @@ const Password = () => {
             <div>
                 <label
                     htmlFor='passwordnuevo'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nuevo password: </label>
+                    className='text-gray-700 uppercase font-bold text-sm'>Nueva Contraseña: </label>
                 <input
                     id='passwordnuevo'
                     type="password"
