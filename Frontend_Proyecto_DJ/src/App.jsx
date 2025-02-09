@@ -18,6 +18,8 @@ import { AuthProvider } from './context/AuthProvider'
 import { PrivateRoute } from './routes/PrivateRoute'
 import { TratamientosProvider } from './context/TratamientoProvider'
 import PrivateRouteWithRole from './routes/PrivateRouteWithRole'
+import ProductoListar from './paginas/ProductoListar'
+import ActualizarProductos from './paginas/ActualizarProductos'
 
 
 
@@ -46,6 +48,8 @@ function App() {
                     <Route element={<Dashboard />}>
                       <Route index element={<Perfil />} />
                       <Route path='listar' element={<Listar />} />
+                      <Route path='listarProductos' element={<ProductoListar/>} />
+                      <Route path='actualizarProductos/:id' element={<ActualizarProductos/>} />
                       <Route path='visualizar/:id' element={<Visualizar />} />
                       <Route path='crear' element={
                         <PrivateRouteWithRole>

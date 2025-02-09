@@ -2,18 +2,16 @@ import { useState } from "react"
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
-export const Formulario = ({paciente}) => {
+export const Formulario = ({producto}) => {
 
     const navigate = useNavigate()
     // Paso 1
     const[form, setForm] = useState({
-        nombre:paciente?.nombre || "",
-        propietario:paciente?.propietario || "",
-        email:paciente?.email || "",
-        celular:paciente?.celular || "",
-        convencional:paciente?.convencional || "",
-        salida: new Date(paciente?.salida).toLocaleDateString('en-CA', {timeZone:'UTC'}) || "",
-        sintomas:paciente?.sintomas || ""
+        nombreDisco:producto?.nombreDisco || "",
+        artista:producto?.artista || "",
+        precio:producto?.precio || "",
+        genero:producto?.genero || "",
+        stock:producto?.stock || ""
     })
 
     // Paso 2
@@ -28,11 +26,11 @@ export const Formulario = ({paciente}) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if(paciente?._id){
+        if(producto?._id){
             // Actualizar
             try {
                 const token = localStorage.getItem('token')
-                const url = `${import.meta.env.VITE_BACKEND_URL}/paciente/actualizar/${paciente._id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/actualizar/${producto._id}`
                 const options = {
                     headers:{
                         method:'PUT',
@@ -50,7 +48,7 @@ export const Formulario = ({paciente}) => {
             // Crear
             try {
                 const token = localStorage.getItem('token')
-                const url = `${import.meta.env.VITE_BACKEND_URL}/paciente/registro`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/registro`
                 const options = {
                     headers:{
                         'Content-Type':'application/json',
@@ -74,99 +72,78 @@ export const Formulario = ({paciente}) => {
         <form onSubmit={handleSubmit}>
             <div>
                 <label
-                    htmlFor='nombre:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre de la mascota: </label>
+                    htmlFor='nombreDisco:'
+                    className='text-gray-700 uppercase font-bold text-sm'>Nombre del disco: </label>
                 <input
-                    id='nombre'
+                    id='nombreDisco'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='nombre de la mascota'
-                    name='nombre'
-                    value={form.nombre || ''}
+                    placeholder='Nombre disco'
+                    name='nombreDisco'
+                    value={form.nombreDisco || ''}
                     onChange={handleChange}
                 />
             </div>
             <div>
                 <label
-                    htmlFor='propietario:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Nombre del propietario: </label>
+                    htmlFor='artista:'
+                    className='text-gray-700 uppercase font-bold text-sm'>Nombre del artista: </label>
                 <input
-                    id='propietario'
+                    id='artista'
                     type="text"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='nombre del propietario'
-                    name='propietario'
-                    value={form.propietario || ''}
+                    placeholder='Nombre del artista'
+                    name='artista'
+                    value={form.artista || ''}
                     onChange={handleChange}
                 />
             </div>
             <div>
                 <label
-                    htmlFor='email:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Email: </label>
+                    htmlFor='precio:'
+                    className='text-gray-700 uppercase font-bold text-sm'>Precio: </label>
                 <input
-                    id='email'
-                    type="email"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='email del propietario'
-                    name='email'
-                    value={form.email || ''}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label
-                    htmlFor='celular:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Celular: </label>
-                <input
-                    id='celular'
+                    id='precio'
                     type="number"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='celular del propietario'
-                    name='celular'
-                    value={form.celular || ''}
+                    placeholder='Precio del disco'
+                    name='precio'
+                    value={form.precio || ''}
                     onChange={handleChange}
                 />
             </div>
             <div>
+                    <label
+                        htmlFor='genero:'
+                        className='text-gray-700 uppercase font-bold text-sm'>Género: </label>
+
+                    <select
+                        id='genero'
+                        name="genero"
+                        onChange={handleChange}
+                        value={form.genero || ''}
+                        className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'>
+                        <option value="">--- Seleccionar ---</option>
+                        <option value="Clásica">Clásica</option>
+                        <option value="Electrónica">Electrónica</option>
+                        <option value="Hip-Hop">Hip-Hop</option>
+                        <option value="Jazz">Jazz</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            <div>
                 <label
-                    htmlFor='convencional:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Convencional: </label>
+                    htmlFor='stock:'
+                    className='text-gray-700 uppercase font-bold text-sm'>Stock: </label>
                 <input
-                    id='convencional'
+                    id='stock'
                     type="number"
                     className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='convencional del propietario'
-                    name='convencional'
-                    value={form.convencional || ''}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label
-                    htmlFor='Salida:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Fecha de salida: </label>
-                <input
-                    id='salida'
-                    type="date"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='salida'
-                    name='salida'
-                    value={form.salida || ""}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label
-                    htmlFor='sintomas:'
-                    className='text-gray-700 uppercase font-bold text-sm'>Síntomas: </label>
-                <textarea
-                    id='sintomas'
-                    type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Ingrese los síntomas de la mascota'
-                    name='sintomas'
-                    value={form.sintomas || ''}
+                    placeholder='Cantidad de discos'
+                    name='stock'
+                    value={form.stock || ''}
                     onChange={handleChange}
                 />
             </div>
@@ -176,7 +153,7 @@ export const Formulario = ({paciente}) => {
                 className='bg-gray-600 w-full p-3 
                     text-slate-300 uppercase font-bold rounded-lg 
                     hover:bg-gray-900 cursor-pointer transition-all'
-                value={paciente?._id ? 'Actualizar':'Registrar'} />
+                value={producto?._id ? 'Actualizar':'Registrar'} />
 
         </form>
     )

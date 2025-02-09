@@ -4,19 +4,19 @@ import { useParams } from 'react-router-dom';
 import Mensaje from '../componets/Alertas/Mensaje';
 import axios from 'axios';
 
-const Actualizar = () => {
+const ActualizarProductos = () => {
 
-    const [cliente, setClientes] = useState({})
+    const [producto, setProducto] = useState({})
 
     const { id } = useParams()
 
     useEffect(() => {
-        const consultarClientes = async () => {
+        const consultarProductos = async () => {
             try {
                 // Obtener Token
                 const token = localStorage.getItem('token')
                 // Definir Endpoint
-                const url = `${import.meta.env.VITE_BACKEND_URL}/clientes/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/detalle/${id}`
                 // Headers
                 const options = {
                     headers: {
@@ -26,22 +26,22 @@ const Actualizar = () => {
                 }
                 // Respuesta al backend
                 const respuesta = await axios.get(url, options)
-                setClientes(respuesta.data.cliente)
+                setProducto(respuesta.data.producto)
             } catch (error) {
                 console.log(error)
             }
         }
-        consultarClientes()
+        consultarProductos()
     }, [])
 
     return (
         <div>
-            <h1 className='font-black text-4xl text-gray-500'>Clientes</h1>
+            <h1 className='font-black text-4xl text-gray-500'>Productos</h1>
             <hr className='my-4' />
-            <p className='mb-8'>Este módulo te permite actualizar los datos de un cliente registrado</p>
+            <p className='mb-8'>Este módulo te permite actualizar los datos de un producto registrado</p>
 
             {
-                Object.keys(cliente).length !=0 && <Formulario cliente={cliente}/>
+                Object.keys(producto).length !=0 && <Formulario producto={producto}/>
             }
           
         </div>
@@ -49,4 +49,4 @@ const Actualizar = () => {
     )
 }
 
-export default Actualizar
+export default ActualizarProductos

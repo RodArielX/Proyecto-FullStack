@@ -12,13 +12,13 @@ const Tabla = () => {
 
 
     // Paso 1
-    const [pacientes, setPacientes] = useState([])
+    const [productos, setProductos] = useState([])
 
     // Paso 2
-    const listarPacientes = async () => {
+    const listarProductos = async () => {
         try {
             const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/pacientes`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/producto/listar`
             const options = {
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,8 +27,8 @@ const Tabla = () => {
             }
             const respuesta = await axios.get(url, options)
             console.log(respuesta.data)
-            setPacientes(respuesta.data, ...pacientes)
-            console.log(pacientes)
+            setProductos(respuesta.data, ...productos)
+            console.log(productos)
 
         } catch (error) {
             console.log(error)
@@ -38,20 +38,17 @@ const Tabla = () => {
     const handleDelete = async (id) => {
         try {
 
-            const confirmar = confirm("Vas a registrar la salida, ¿Estás seguro?")
+            const confirmar = confirm("Vas a eliminar este producto, ¿Estás seguro?")
 
             if (confirmar) {
                 const token = localStorage.getItem('token')
-                const url = `${import.meta.env.VITE_BACKEND_URL}/paciente/eliminar/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/eliminar/${id}`
                 const headers = {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 }
-                const data = {
-                    salida: new Date().toString()
-                }
                 const respuesta = await axios.delete(url, { headers, data })
-                listarPacientes()
+                listarProductos()
 
             }
 
@@ -61,13 +58,13 @@ const Tabla = () => {
     }
 
     useEffect(() => {
-        listarPacientes()
+        listarProductos()
     }, [])
 
     return (
         <>
             {
-                pacientes.length == 0
+                productos.length == 0
                     ?
                     <p>No existen registros</p>
                     :
@@ -75,38 +72,38 @@ const Tabla = () => {
                         <thead className='bg-gray-800 text-slate-400'>
                             <tr>
                                 <th className='p-2'>N°</th>
-                                <th className='p-2'>Nombre</th>
-                                <th className='p-2'>Propietario</th>
-                                <th className='p-2'>Email</th>
-                                <th className='p-2'>Celular</th>
-                                <th className='p-2'>Estado</th>
+                                <th className='p-2'>Nombre del Disco</th>
+                                <th className='p-2'>Nombre del Artista</th>
+                                <th className='p-2'>Precio</th>
+                                <th className='p-2'>Género</th>
+                                <th className='p-2'>Stock</th>
                                 <th className='p-2'>Acciones</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                pacientes.map((paciente, index) => (
-                                    <tr className="border-b hover:bg-gray-300 text-center" key={paciente._id}>
+                                productos.map((producto, index) => (
+                                    <tr className="border-b hover:bg-gray-300 text-center" key={producto._id}>
                                         <td>{index + 1}</td>
-                                        <td>{paciente.nombre}</td>
-                                        <td>{paciente.propietario}</td>
-                                        <td>{paciente.email}</td>
-                                        <td>{paciente.celular}</td>
-                                        <td>
-                                            <span className="bg-blue-100 text-green-500 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">{paciente.estado && "activo"}</span>
-                                        </td>
+                                        <td>{producto.nombreDisco}</td>
+                                        <td>{producto.artista}</td>
+                                        <td>{producto.precio}</td>
+                                        <td>{producto.genero}</td>
+                                        <td>{producto.stock}</td>
+    
                                         <td className='py-2 text-center'>
-                                            <MdNoteAdd className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" onClick={() => navigate(`/dashboard/visualizar/${paciente._id}`)} />
+                                            <MdNoteAdd className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" onClick={() => navigate(`/dashboard/visualizar/${producto._id}`)} />
                                             {
-                                                auth.rol === "veterinario" &&
+                                                auth.rol === "Administrador" &&
                                                 (
                                                     <>
                                                         <MdInfo className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
-                                                            onClick={() => navigate(`/dashboard/actualizar/${paciente._id}`)}
+                                                            onClick={() => navigate(`/dashboard/actualizarProductos/${producto._id}`)}
                                                         />
 
                                                         <MdDeleteForever className="h-7 w-7 text-red-900 cursor-pointer inline-block"
-                                                            onClick={() => { handleDelete(paciente._id) }}
+                                                            onClick={() => { handleDelete(producto._id) }}
                                                         />
                                                     </>
                                                 )
