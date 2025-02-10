@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
-import logoDog from '../assets/dog-hand.webp'
-import {useNavigate}from 'react-router-dom'
+import logoDog from '../assets/dj.png'
+import backgroundImage from '../assets/proyecto3.jpg' 
+import { useNavigate } from 'react-router-dom'
 
 export default function Restablecer() {
 
-    // Paso 1
     const navigate = useNavigate()
     const { token } = useParams()
     const [tokenback, setTokenback] = useState(false)
@@ -16,16 +16,13 @@ export default function Restablecer() {
         confirmpassword: ""
     })
 
-    // Paso2
     const handleChange = (e) => {
         setForm({
             ...form,
             [e.target.name]: e.target.value
         })
-
     }
 
-    // Paso 3
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
@@ -36,11 +33,8 @@ export default function Restablecer() {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
-
         }
-
     }
-
 
     const verifyToken = async () => {
         try {
@@ -52,49 +46,71 @@ export default function Restablecer() {
         } catch (error) {
             console.log(error)
             toast.error(error.response.data.msg)
-
         }
-
-
     }
 
     useEffect(() => {
         verifyToken()
     }, [])
 
-
-
     return (
-        <div className="flex flex-col items-center justify-center">
-            <ToastContainer />
-            <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-500">Welcome again</h1>
-            <small className="text-gray-400 block my-4 text-sm">Please enter your details</small>
-            <img className="object-cover h-80 w-80 rounded-full border-4 border-solid border-slate-600" src={logoDog} alt="image description" />
-            {tokenback &&
-                <form className='w-full' onSubmit={handleSubmit}>
-                    <div className="mb-1">
-                        <label className="mb-2 block text-sm font-semibold">Password</label>
-                        <input type="password" placeholder="Enter your password" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500"
-                            value={form.password || ""}
-                            name='password'
-                            onChange={handleChange}
-                        />
-                        <label className="mb-2 block text-sm font-semibold">Confirm password</label>
-                        <input type="password" placeholder="Repeat your password" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500"
-                            value={form.confirmpassword || ""}
-                            name='confirmpassword'
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Enviar
-                        </button>
-                        <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white" onClick={()=>{navigate("/login")}}>Iniciar Sesión
-                        </button>
-                    </div>
-                </form>
-            }
+        <div className="relative w-full h-screen flex items-center justify-center text-white">
+            {/* Imagen de fondo con overlay */}
+            <div 
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(${backgroundImage})` }}
+            >
+                <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Capa oscura */}
+            </div>
+
+            <div className="relative z-10 flex flex-col items-center p-6 bg-black bg-opacity-70 rounded-xl shadow-lg">
+                <ToastContainer />
+                <h1 className="text-4xl font-extrabold mb-4 text-center uppercase text-neon-purple drop-shadow-neon">Restablecer Contraseña</h1>
+                <small className="text-gray-400 block my-4 text-lg">Ingresa tu nueva contraseña</small>
+                <img 
+                    className="object-cover h-48 w-48 rounded-full border-4 border-solid border-neon-pink shadow-neon transition duration-500 hover:scale-105" 
+                    src={logoDog} 
+                    alt="DJ logo"
+                />
+
+                {tokenback &&
+                    <form className='w-full max-w-md mt-6' onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="block text-neon-green text-lg font-semibold mb-2">Nueva Contraseña</label>
+                            <input 
+                                type="password" 
+                                placeholder="Escribe tu contraseña" 
+                                className="block w-full rounded-md border border-gray-600 focus:border-neon-pink focus:outline-none focus:ring-2 focus:ring-neon-pink py-2 px-3 text-gray-300 bg-gray-800 transition duration-300"
+                                value={form.password || ""}
+                                name='password'
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-neon-green text-lg font-semibold mb-2">Confirmar Contraseña</label>
+                            <input 
+                                type="password" 
+                                placeholder="Repite tu contraseña" 
+                                className="block w-full rounded-md border border-gray-600 focus:border-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-blue py-2 px-3 text-gray-300 bg-gray-800 transition duration-300"
+                                value={form.confirmpassword || ""}
+                                name='confirmpassword'
+                                onChange={handleChange}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-4">
+                            <button className="bg-neon-blue text-white py-3 rounded-xl font-bold hover:scale-105 transition transform duration-300 shadow-lg hover:shadow-neon-blue">Enviar</button>
+                            <button 
+                                className="bg-neon-purple text-white py-3 rounded-xl font-bold hover:scale-105 transition transform duration-300 shadow-lg hover:shadow-neon-purple"
+                                onClick={()=>{navigate("/login")}}
+                            >
+                                Iniciar Sesión
+                            </button>
+                        </div>
+                    </form>
+                }
+            </div>
         </div>
     )
 }
-
