@@ -60,21 +60,21 @@ const Login = () => {
                 
                 <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
                     <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-gray-500">Inicio de Sesión</h1>
-                    <small className="text-gray-400 block my-4 text-sm">Ingresa tus credenciales</small>
+                    <small className="text-black-400 block my-4 text-sm">Ingresa tus credenciales</small>
     
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="mb-2 block text-sm font-semibold">Email</label>
-                            <input type="email" name='email' value={form.email} onChange={handleChange} placeholder="Enter your email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
+                            <input type="email" name='email' value={form.email} onChange={handleChange} placeholder="Ingresa tu email" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                         </div>
     
                         <div className="mb-3">
-                            <label className="mb-2 block text-sm font-semibold">Password</label>
+                            <label className="mb-2 block text-sm font-semibold">Contraseña</label>
                             <input type="password" name='password' value={form.password} onChange={handleChange} placeholder="********************" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-2 text-gray-500" />
                         </div>
     
                         <div className="my-4">
-                            <button className="py-2 w-full block text-center bg-gray-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-gray-900 hover:text-white">Login</button>
+                            <button className="py-2 w-full block text-center bg-gray-500 text-slate-300 border rounded-xl hover:scale-100 duration-300 hover:bg-gray-900 hover:text-white">Iniciar Sesión</button>
                         </div>
                     </form>
     
@@ -95,12 +95,12 @@ const Login = () => {
                     </button>
     
                     <div className="mt-5 text-xs border-b-2 py-4 ">
-                        <Link to="/forgot/id" className="underline text-sm text-gray-400 hover:text-gray-900">Forgot your password?</Link>
+                        <Link to="/forgot/id" className="underline text-sm text-black-400 hover:text-gray-900">¿Olvidaste tu contraseña?</Link>
                     </div>
     
                     <div className="mt-3 text-sm flex justify-between items-center">
-                        <p>Don't have an account?</p>
-                        <Link to="/register" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Register</Link>
+                        <p>¿No tienes una cuenta?</p>
+                        <Link to="/register" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Registrate ahora</Link>
                     </div>
                 </div>
             </div>

@@ -48,7 +48,7 @@ const TablaClientes = () => {
                     Authorization: `Bearer ${token}`
                 }
                 const respuesta = await axios.delete(url, { headers})
-                listarProductos()
+                listarClientes()
 
             }
 

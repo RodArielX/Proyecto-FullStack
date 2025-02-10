@@ -55,7 +55,7 @@ export const Register = () => {
 
 
                     <h1 className="text-3xl font-semibold mb-2 text-center uppercase  text-gray-500">Bienvenido</h1>
-                    <small className="text-gray-400 block my-4 text-sm">Ingresa tus datos</small>
+                    <small className="mb-2 block text-sm font-semibold">Ingresa tus datos</small>
 
 
                     <form onSubmit={handleSubmit}>
@@ -114,8 +114,8 @@ export const Register = () => {
                     </div>
 
                     <div className="mt-3 text-sm flex justify-between items-center">
-                        <p>You've already an account?</p>
-                        <Link to="/login" className="py-2 px-5 bg-gray-500 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 ">Login</Link>
+                        <p>¿Recordaste tu contraseña?</p>
+                        <Link to="/login" className="py-2 px-5 bg-gray-500 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 ">Iniciar Sesión</Link>
                     </div>
 
 

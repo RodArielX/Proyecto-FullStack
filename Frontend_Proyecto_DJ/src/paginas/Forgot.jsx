@@ -52,8 +52,8 @@ export const Forgot = () => {
               </header>
               <div className="flex flex-grow justify-center items-center">
                   <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
-                      <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-gray-500">¿Olvidaste tu contraseña?</h1>
-                      <small className="text-gray-400 block my-4 text-sm">No te preocupes! Te enviaremos un email para que puedas reestablecer tu contraseña</small>
+                      <h1 className="text-4xl font-semibold mb-2 text-center uppercase text-gray-500">¿Olvidaste tu contraseña?</h1>
+                      <small className="text-black-400 block my-4 text-sm">No te preocupes! Te enviaremos un email para que puedas reestablecer tu contraseña</small>
                       
                       <form onSubmit={handleSubmit}>
                           <div className="mb-1">

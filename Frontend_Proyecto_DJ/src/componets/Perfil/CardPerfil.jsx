@@ -1,34 +1,42 @@
-
-import { useContext } from "react"
-import AuthContext from "../../context/AuthProvider"
+import { useContext } from "react";
+import AuthContext from "../../context/AuthProvider";
 
 export const CardPerfil = () => {
-    const { auth } = useContext(AuthContext)
-    return (
-        <div className="bg-white border border-slate-200 h-auto p-4 
-                        flex flex-col items-center justify-between shadow-xl rounded-lg">
+    const { auth } = useContext(AuthContext);
 
-            <div>
-                <img src="https://cdn-icons-png.flaticon.com/512/4715/4715329.png" alt="img-client" className="m-auto " width={120} height={120} />
+    return (
+        <div className="w-full max-w-4xl mx-auto p-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-lg border border-gray-300">
+            <div className="flex flex-col items-center">
+                {/* Imagen del usuario */}
+                <img 
+                    src="/images/djuser.png" 
+                    alt="dj-user" 
+                    className="w-32 h-32 rounded-full border-4 border-white shadow-md"
+                />
+
+                {/* Nombre del usuario */}
+                <h2 className="text-2xl font-bold text-gray-700 mt-3">{auth.nombre} {auth.apellido}</h2>
+                <p className="text-lg text-gray-500">{auth.email}</p>
             </div>
-            <div className="self-start">
-                <b>Nombre:</b><p className="inline-block ml-3">{auth.nombre}</p>
-            </div>
-            <div className="self-start">
-                <b>Apellido:</b><p className="inline-block ml-3">{auth.apellido}</p>
-            </div >
-            <div className="self-start">
-                <b>Dirección:</b><p className="inline-block ml-3">{auth.direccion}</p>
-            </div>
-            <div className="self-start">
-                <b>Teléfono:</b><p className="inline-block ml-3">{auth.telefono}</p>
-            </div>
-            <div className="self-start">
-                <b>Email:</b><p className="inline-block ml-3">{auth.email}</p>
-            </div>
-            <div className="self-start">
-                <b>Descripción:</b><p className="inline-block ml-3">{auth.descripcion}</p>
+
+            {/* Información del usuario */}
+            <div className="mt-6 space-y-4 text-lg">
+                <div className="flex justify-between items-center border-b border-gray-300 pb-3">
+                    <span className="text-gray-600 font-semibold uppercase">Dirección:</span>
+                    <span className="text-gray-800">{auth.direccion}</span>
+                </div>
+
+                <div className="flex justify-between items-center border-b border-gray-300 pb-3">
+                    <span className="text-gray-600 font-semibold uppercase">Teléfono:</span>
+                    <span className="text-gray-800">{auth.telefono}</span>
+                </div>
+
+                <div className="flex justify-between items-center border-b border-gray-300 pb-3">
+                    <span className="text-gray-600 font-semibold uppercase">Descripción:</span>
+                    <span className="text-gray-800">{auth.descripcion}</span>
+                </div>
             </div>
         </div>
-    )
-}
+    );
+};
+

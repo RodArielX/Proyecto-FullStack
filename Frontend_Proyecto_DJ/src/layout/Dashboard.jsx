@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
 import AuthContext from '../context/AuthProvider'
+import logo_padre from '../assets/logo_padre.jpg'
 
 
 const Dashboard = () => {
@@ -18,7 +19,7 @@ const Dashboard = () => {
 
                 <h2 className='text-4xl font-black text-center text-slate-200'>EDWIN ASQUI DJ</h2>
 
-                <img src="https://cdn-icons-png.flaticon.com/512/2138/2138508.png" alt="img-client" className="m-auto mt-8 p-1 border-2 border-slate-500 rounded-full" width={120} height={120} />
+                <img src={logo_padre} alt="logo-padre" className="m-auto mt-8 p-1 border-2 border-slate-500 rounded-full" width={120} height={120} />
                 <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-green-600 w-3 h-3 inline-block rounded-full'></span> Bienvenido - {auth?.nombre}</p>
                 <p className='text-slate-400 text-center my-4 text-sm'> Rol - {auth?.rol}</p>
                 <hr className="mt-5 border-slate-500" />
@@ -49,7 +50,7 @@ const Dashboard = () => {
                         Usuario - {auth?.nombre}
                     </div>
                     <div>
-                        <img src="https://cdn-icons-png.flaticon.com/512/4715/4715329.png" alt="img-client" className="border-2 border-green-600 rounded-full" width={50} height={50} />
+                        <img src="/images/headphones.png" alt="img-client" className="border-2 border-gray-600 rounded-full" width={50} height={50} />
                     </div>
                     <div>
                         <Link to='/' className=" text-white mr-3 text-md block hover:bg-red-900 text-center
@@ -60,7 +61,7 @@ const Dashboard = () => {
                     {auntenticado ? <Outlet /> : <Navigate to="/login"/>}
                 </div>
                 <div className='bg-gray-800 h-12'>
-                    <p className='text-center  text-slate-100 leading-[2.9rem] underline'>Todos los derechos reservados</p>
+                    <p className='text-center  text-slate-100 leading-[2.9rem] underline'>&copy; 2025 Todos los derechos reservados.</p>
                 </div>
 
             </div>

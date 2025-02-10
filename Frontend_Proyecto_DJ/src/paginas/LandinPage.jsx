@@ -2,7 +2,7 @@ import logoDarkMode from '../assets/dark.png'
 import logoFacebook from '../assets/facebook.png'
 import logoGithub from '../assets/github.png'
 import logoLinkedind from '../assets/linkedin.png'
-import logoRocket from '../assets/rocket.webp'
+import logo_padre from '../assets/logo_padre.jpg'
 import logoCode from '../assets/code.png'
 import logoConsulting from '../assets/consulting.png'
 import logoDesign from '../assets/design.png'
@@ -32,9 +32,10 @@ export const LandinPage = () => {
                     </nav>
 
                     <div className='text-center'>
-                        <h2 className='text-5xl py-2 text-teal-600 font-medium md:text-6xl'>Proyect Demo</h2>
-                        <h3 className='text-2xl py-2 md:text-3xl dark:text-white'>Scalable and Responsive</h3>
-                        <p className='text-md py-5 leading-8 text-gray-800 md:text-xl max-w-lg mx-auto dark:text-white'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel vero dolore pariatur asperiores voluptatibus sunt optio iste atque animi id odio aliquid sapiente voluptatem, accusantium, ea sed quibusdam a. Itaque.</p>
+                        <h2 className='text-5xl py-2 text-teal-600 font-medium md:text-6xl'>EDWIN ASQUI</h2>
+                        <h3 className='text-2xl py-2 md:text-3xl dark:text-white'>VDJ Y DJ EN VINILOS</h3>
+                        <p className='text-md py-5 leading-8 text-gray-800 md:text-xl max-w-lg mx-auto dark:text-white'>EDWIN ASQUI es un DJ y VDJ profesional especializado en 
+                            trabajar en música en vivo tanto en formato MP3 y en videos, Por otro lado, también es experto en trabajar en mezclas con discos de vinilos.</p>
                     </div>
 
                     <div className='text-5xl flex justify-center gap-16 py-3'>
@@ -46,15 +47,16 @@ export const LandinPage = () => {
                     </div>
 
                     <div className='relative mx-auto  bg-gradient-to-b from-indigo-400 rounded-full w-80 h-80 mt-12 overflow-hidden md:w-96 md:h-96 dark:border-4 border-teal-300'>
-                        <img src={logoRocket} alt="logo-rocket" />
+                        <img src={logo_padre} alt="logo-padre" />
                     </div>
                 </section>
 
                 <section>
                     <div>
-                        <h3 className='text-3xl py-1 dark:text-white'>Services offered</h3>
-                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, delectus iure <span className='text-teal-500'>quibusdam</span> quas quaerat itaque, est minima ducimus recusandae illo ipsam numquam nam earum libero <span className='text-teal-500'>deleniti</span> voluptatem! Autem, veniam ut.</p>
-                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestiae, delectus iure <span className='text-teal-500'>quibusdam</span> quas quaerat itaque, est minima ducimus recusandae illo ipsam numquam nam earum libero <span className='text-teal-500'>deleniti</span> voluptatem! Autem, veniam ut.</p>
+                        <h3 className='text-3xl py-1 dark:text-white'>Servicios Ofrecidos</h3>
+                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>Ha trabajado en varios eventos como <span className='text-teal-500'>cumpleaños, bautizos, graduaciones</span>, etc. En otras palabras, tiene la experiencia de trabajar en todo tipo de evento social.</p>
+                        <p className='text-md py-2 leading-8 text-gray-800 dark:text-white'>EDWIN ASQUI DJ es especializado en <span className='text-teal-500'>todos los géneros musicales.</span>Por lo tanto, si el cliente solicita algún género en especial no dude que <span className='text-teal-500'>Edwin</span> lo deleitará con lo requerido.</p>
+                        Por lo tanto, si el cliente solicita algún género en especial no dude que Edwin lo deleitará con lo requerido.
                     </div>
 
                     <div className='md:flex md:flex-wrap lg:flex lg:justify-center gap-10'>
