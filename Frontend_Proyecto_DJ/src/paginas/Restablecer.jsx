@@ -36,6 +36,7 @@ export default function Restablecer() {
         }
     }
 
+    
     const verifyToken = async () => {
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-password/${token}`
