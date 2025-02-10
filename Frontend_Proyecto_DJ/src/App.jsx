@@ -48,7 +48,9 @@ function App() {
                   <Routes>
                     <Route element={<Dashboard />}>
                       <Route index element={<Perfil />} />
-                      <Route path='listarClientes' element={<ListarClientes/>} />
+                      <Route path='listarClientes' element={<PrivateRouteWithRole>
+                          <ListarClientes />
+                        </PrivateRouteWithRole>} />
                       <Route path='listarProductos' element={<ProductoListar/>} />
                       <Route path='actualizarProductos/:id' element={<ActualizarProductos/>} />
                       <Route path='visualizarCliente/:id' element={<VisualizarCliente/>} />

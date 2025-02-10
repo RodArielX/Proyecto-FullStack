@@ -29,12 +29,16 @@ const Login = () => {
     // Paso 3
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const url = form.password.includes("dj")
-            ? `${import.meta.env.VITE_BACKEND_URL}/cliente/login`
-            : `${import.meta.env.VITE_BACKEND_URL}/login`
+        const url = form.email.includes("rodarielx16")
+            ? `${import.meta.env.VITE_BACKEND_URL}/login`
+            : `${import.meta.env.VITE_BACKEND_URL}/cliente/login`
         try {
             const respuesta = await axios.post(url, form)
             localStorage.setItem('token',respuesta.data.token)
+
+            const rol = form.email.includes("rodarielx16") ? "Administrador" : "Cliente";
+            localStorage.setItem('rol', rol)
+
             setAuth(respuesta.data)
             console.log(respuesta)
             toast.success("Login exitoso")

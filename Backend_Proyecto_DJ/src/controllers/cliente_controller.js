@@ -92,7 +92,7 @@ const perfilCliente = (req, res) => {
 
 const listarClientes = async (req, res) => {
     try {
-        const clientes = await Cliente.find({ status: true }).select("-createdAt -updatedAt -__v -password -token -confirmEmail -direccion -ciudad")
+        const clientes = await Cliente.find({ status: true }).select("-createdAt -updatedAt -__v -password -token -confirmEmail")
 
         res.status(200).json(clientes);
     } catch (error) {
