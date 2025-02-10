@@ -1,8 +1,8 @@
-import { Formulario } from '../componets/Formulario'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Mensaje from '../componets/Alertas/Mensaje';
 import axios from 'axios';
+import { FormularioProductos } from '../componets/FormularioProductos'
 
 const ActualizarProductos = () => {
 
@@ -26,7 +26,7 @@ const ActualizarProductos = () => {
                 }
                 // Respuesta al backend
                 const respuesta = await axios.get(url, options)
-                setProducto(respuesta.data.producto)
+                setProducto(respuesta.data)
             } catch (error) {
                 console.log(error)
             }
@@ -41,7 +41,7 @@ const ActualizarProductos = () => {
             <p className='mb-8'>Este módulo te permite actualizar los datos de un producto registrado</p>
 
             {
-                Object.keys(producto).length !=0 && <Formulario producto={producto}/>
+                Object.keys(producto).length !=0 && <FormularioProductos producto={producto}/>
             }
           
         </div>

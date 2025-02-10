@@ -3,7 +3,7 @@ import { CardPerfil } from '../componets/Perfil/CardPerfil'
 import FormularioPerfil from '../componets/Perfil/FormularioPerfil'
 import Password from '../componets/Perfil/Password'
 import AuthContext from '../context/AuthProvider'
-import { CardPerfilPaciente } from '../componets/Perfil/CardPerfilPaciente'
+import { CardPerfilCliente } from '../componets/Perfil/CardPerfilCliente'
 
 const Perfil = () => {
     const {auth} = useContext(AuthContext)
@@ -15,8 +15,8 @@ const Perfil = () => {
                 <p className='mb-8'>Este módulo te permite visualizar el perfil del usuario {auth?.nombre}</p>
             </div>
             {
-                "propietario" in auth 
-                    ? (<CardPerfilPaciente/>)
+                "Cliente" in auth 
+                    ? (<CardPerfilCliente/>)
                     : (
                         <div className='flex justify-around gap-x-8 flex-wrap gap-y-8 md:flex-nowrap'>
                             <div className='w-full md:w-1/2'>

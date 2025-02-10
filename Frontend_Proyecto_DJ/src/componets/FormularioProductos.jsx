@@ -2,7 +2,7 @@ import { useState } from "react"
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 
-export const Formulario = ({producto}) => {
+export const FormularioProductos = ({producto}) => {
 
     const navigate = useNavigate()
     // Paso 1
@@ -39,7 +39,7 @@ export const Formulario = ({producto}) => {
                     }
                 }
                 await axios.put(url,form,options)
-                navigate('/dashboard/listar')
+                navigate('/dashboard/listarProductos')
             } catch (error) {
                 console.log(error)
             }
@@ -57,7 +57,7 @@ export const Formulario = ({producto}) => {
                 }
                 await axios.post(url,form,options)
     
-                navigate('/dashboard/listar')
+                navigate('/dashboard/listarProductos')
             } catch (error) {
                 
             }

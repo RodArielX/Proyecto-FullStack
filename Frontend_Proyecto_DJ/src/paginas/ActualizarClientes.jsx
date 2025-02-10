@@ -1,10 +1,10 @@
-import { Formulario } from '../componets/Formulario'
+import { FormularioCliente } from '../componets/FormularioCliente'
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Mensaje from '../componets/Alertas/Mensaje';
 import axios from 'axios';
 
-const Actualizar = () => {
+const ActualizarClientes = () => {
 
     const [cliente, setClientes] = useState({})
 
@@ -16,7 +16,7 @@ const Actualizar = () => {
                 // Obtener Token
                 const token = localStorage.getItem('token')
                 // Definir Endpoint
-                const url = `${import.meta.env.VITE_BACKEND_URL}/clientes/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/cliente/detalle/${id}`
                 // Headers
                 const options = {
                     headers: {
@@ -26,7 +26,7 @@ const Actualizar = () => {
                 }
                 // Respuesta al backend
                 const respuesta = await axios.get(url, options)
-                setClientes(respuesta.data.cliente)
+                setClientes(respuesta.data)
             } catch (error) {
                 console.log(error)
             }
@@ -41,7 +41,7 @@ const Actualizar = () => {
             <p className='mb-8'>Este módulo te permite actualizar los datos de un cliente registrado</p>
 
             {
-                Object.keys(cliente).length !=0 && <Formulario cliente={cliente}/>
+                Object.keys(cliente).length !=0 && <FormularioCliente cliente={cliente}/>
             }
           
         </div>
@@ -49,4 +49,4 @@ const Actualizar = () => {
     )
 }
 
-export default Actualizar
+export default ActualizarClientes

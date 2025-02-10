@@ -7,10 +7,7 @@ import { Register } from './paginas/Register'
 import { Forgot } from './paginas/Forgot'
 import { NotFound } from './paginas/NotFound'
 import Dashboard from './layout/Dashboard'
-import Listar from './paginas/Listar'
-import Visualizar from './paginas/Visualizar'
 import Crear from './paginas/Crear'
-import Actualizar from './paginas/Actualizar'
 import Perfil from './paginas/Perfil'
 import { Confirmar } from './paginas/Confirmar'
 import Restablecer from './paginas/Restablecer'
@@ -20,6 +17,10 @@ import { TratamientosProvider } from './context/TratamientoProvider'
 import PrivateRouteWithRole from './routes/PrivateRouteWithRole'
 import ProductoListar from './paginas/ProductoListar'
 import ActualizarProductos from './paginas/ActualizarProductos'
+import VisualizarProductos from './paginas/VisualizarProductos'
+import VisualizarCliente from './paginas/VisualizarCliente'
+import ActualizarClientes from './paginas/ActualizarClientes'
+import ListarClientes from './paginas/ListarClientes'
 
 
 
@@ -47,16 +48,17 @@ function App() {
                   <Routes>
                     <Route element={<Dashboard />}>
                       <Route index element={<Perfil />} />
-                      <Route path='listar' element={<Listar />} />
+                      <Route path='listarClientes' element={<ListarClientes/>} />
                       <Route path='listarProductos' element={<ProductoListar/>} />
                       <Route path='actualizarProductos/:id' element={<ActualizarProductos/>} />
-                      <Route path='visualizar/:id' element={<Visualizar />} />
+                      <Route path='visualizarCliente/:id' element={<VisualizarCliente/>} />
+                      <Route path='visualizarProducto/:id' element={<VisualizarProductos/>} />
                       <Route path='crear' element={
                         <PrivateRouteWithRole>
                           <Crear />
                         </PrivateRouteWithRole>
                       } />
-                      <Route path='actualizar/:id' element={<Actualizar />} />
+                      <Route path='actualizarClientes/:id' element={<ActualizarClientes />} />
                     </Route>
                   </Routes>
                 </PrivateRoute>
