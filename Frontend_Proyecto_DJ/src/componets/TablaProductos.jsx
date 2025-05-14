@@ -1,126 +1,176 @@
 import { useContext, useEffect, useState } from "react";
-import { MdDeleteForever, MdNoteAdd, MdInfo } from "react-icons/md";
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Trash2, Eye, Pencil } from "lucide-react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 
-
 const Tabla = () => {
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const { auth } = useContext(AuthContext)
-    const navigate = useNavigate()
+  const [productos, setProductos] = useState([]);
+  const [filtroNombre, setFiltroNombre] = useState("");
+  const [filtroArtista, setFiltroArtista] = useState("");
+  const [filtroGenero, setFiltroGenero] = useState("");
+  const [mostrarAgotados, setMostrarAgotados] = useState(true);
 
-
-    // Paso 1
-    const [productos, setProductos] = useState([])
-
-    // Paso 2
-    const listarProductos = async () => {
-        try {
-            const token = localStorage.getItem('token')
-            const url = `${import.meta.env.VITE_BACKEND_URL}/producto/listar`
-            const options = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-            }
-            const respuesta = await axios.get(url, options)
-            console.log(respuesta.data)
-            setProductos(respuesta.data, ...productos)
-            console.log(productos)
-
-        } catch (error) {
-            console.log(error)
-        }
+  const listarProductos = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const url = `${import.meta.env.VITE_BACKEND_URL}/producto/listar`;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const respuesta = await axios.get(url, options);
+      setProductos(respuesta.data);
+    } catch (error) {
+      console.log(error);
     }
-    // Eliminar Productos
-    const handleDelete = async (id) => {
-        try {
+  };
 
-            const confirmar = confirm("Vas a eliminar este producto, ¿Estás seguro?")
+  const handleDelete = async (id) => {
+    const confirmar = confirm("¿Estás seguro de marcar este producto como agotado?");
+    if (!confirmar) return;
 
-            if (confirmar) {
-                const token = localStorage.getItem('token')
-                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/eliminar/${id}`
-                const headers = {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                }
-                const respuesta = await axios.delete(url, { headers})
-                listarProductos()
+    try {
+      const token = localStorage.getItem("token");
+      const url = `${import.meta.env.VITE_BACKEND_URL}/producto/actualizar/${id}`;
+      const options = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-            }
-
-        } catch (error) {
-            console.log(error)
-        }
+      await axios.put(url, { stock: 0 }, options);
+      listarProductos();
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    useEffect(() => {
-        listarProductos()
-    }, [])
+  useEffect(() => {
+    listarProductos();
+  }, []);
 
-    return (
-        <>
-            {
-                productos.length == 0
-                    ?
-                    <p>No existen registros</p>
-                    :
-                    <table className='w-full mt-5 table-auto shadow-lg  bg-white'>
-                        <thead className='bg-gray-800 text-slate-400'>
-                            <tr>
-                                <th className='p-2'>N°</th>
-                                <th className='p-2'>Nombre del Disco</th>
-                                <th className='p-2'>Nombre del Artista</th>
-                                <th className='p-2'>Precio</th>
-                                <th className='p-2'>Género</th>
-                                <th className='p-2'>Stock</th>
-                                <th className='p-2'>Acciones</th>
+  const productosFiltrados = productos.filter((p) => {
+    const coincideNombre = p.nombreDisco.toLowerCase().includes(filtroNombre.toLowerCase());
+    const coincideArtista = p.artista.toLowerCase().includes(filtroArtista.toLowerCase());
+    const coincideGenero = filtroGenero ? p.genero === filtroGenero : true;
+    const mostrar = mostrarAgotados ? true : p.stock > 0;
+    return coincideNombre && coincideArtista && coincideGenero && mostrar;
+  });
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                productos.map((producto, index) => (
-                                    <tr className="border-b hover:bg-gray-300 text-center" key={producto._id}>
-                                        <td>{index + 1}</td>
-                                        <td>{producto.nombreDisco}</td>
-                                        <td>{producto.artista}</td>
-                                        <td>{producto.precio}</td>
-                                        <td>{producto.genero}</td>
-                                        <td>{producto.stock}</td>
-    
-                                        <td className='py-2 text-center'>
-                                            <MdNoteAdd className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2" onClick={() => navigate(`/dashboard/visualizarProducto/${producto._id}`)} />
-                                            {
-                                                auth.rol === "Administrador" &&
-                                                (
-                                                    <>
-                                                        <MdInfo className="h-7 w-7 text-slate-800 cursor-pointer inline-block mr-2"
-                                                            onClick={() => navigate(`/dashboard/actualizarProductos/${producto._id}`)}
-                                                        />
+  const limpiarFiltros = () => {
+    setFiltroNombre("");
+    setFiltroArtista("");
+    setFiltroGenero("");
+    setMostrarAgotados(true);
+  };
 
-                                                        <MdDeleteForever className="h-7 w-7 text-red-900 cursor-pointer inline-block"
-                                                            onClick={() => { handleDelete(producto._id) }}
-                                                        />
-                                                    </>
-                                                )
-                                            }
+  return (
+    <div className="bg-zinc-950 text-white p-6 rounded-2xl shadow-xl">
+      <h2 className="text-3xl font-bold text-yellow-400 mb-6">Catálogo de Discos</h2>
 
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+        <input
+          type="text"
+          placeholder="Buscar por disco"
+          className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white placeholder-gray-400"
+          value={filtroNombre}
+          onChange={(e) => setFiltroNombre(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Buscar por artista"
+          className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white placeholder-gray-400"
+          value={filtroArtista}
+          onChange={(e) => setFiltroArtista(e.target.value)}
+        />
+        <select
+          className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white"
+          value={filtroGenero}
+          onChange={(e) => setFiltroGenero(e.target.value)}
+        >
+          <option value="">Todos los géneros</option>
+          <option value="Clásica">Clásica</option>
+          <option value="Electrónica">Electrónica</option>
+          <option value="Hip-Hop">Hip-Hop</option>
+          <option value="Jazz">Jazz</option>
+          <option value="Pop">Pop</option>
+          <option value="Rock">Rock</option>
+          <option value="Otro">Otro</option>
+        </select>
+        <label className="flex items-center space-x-2 text-white">
+          <input
+            type="checkbox"
+            checked={mostrarAgotados}
+            onChange={() => setMostrarAgotados(!mostrarAgotados)}
+          />
+          <span>Mostrar agotados</span>
+        </label>
+        <button
+          className="bg-yellow-500 text-black px-4 py-2 rounded-md hover:bg-yellow-400 transition"
+          onClick={limpiarFiltros}
+        >
+          Limpiar filtros
+        </button>
+      </div>
 
-                                        </td>
-                                    </tr>
-                                ))
-                            }
+      {productosFiltrados.length === 0 ? (
+        <p className="text-center text-gray-400">No existen registros que coincidan con tu búsqueda.</p>
+      ) : (
+        <div className="overflow-x-auto rounded-xl">
+          <table className="min-w-full bg-zinc-900 text-white shadow-md rounded-xl overflow-hidden">
+            <thead className="bg-yellow-500 text-black">
+              <tr>
+                <th className="p-3 text-left">#</th>
+                <th className="p-3 text-left">Disco</th>
+                <th className="p-3 text-left">Artista</th>
+                <th className="p-3 text-left">Precio</th>
+                <th className="p-3 text-left">Género</th>
+                <th className="p-3 text-left">Stock</th>
+                <th className="p-3 text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productosFiltrados.map((producto, index) => (
+                <tr key={producto._id} className="border-b border-zinc-800 hover:bg-zinc-800">
+                  <td className="p-3">{index + 1}</td>
+                  <td className="p-3">{producto.nombreDisco}</td>
+                  <td className="p-3">{producto.artista}</td>
+                  <td className="p-3">${producto.precio}</td>
+                  <td className="p-3">{producto.genero}</td>
+                  <td className="p-3">{producto.stock}</td>
+                  <td className="p-3 flex justify-center space-x-4">
+                    <Eye
+                      className="w-5 h-5 text-green-400 cursor-pointer hover:scale-110 transition"
+                      onClick={() => navigate(`/dashboard/visualizarProducto/${producto._id}`)}
+                    />
+                    {auth.rol === "Administrador" && (
+                      <>
+                        <Pencil
+                          className="w-5 h-5 text-blue-400 cursor-pointer hover:scale-110 transition"
+                          onClick={() => navigate(`/dashboard/actualizarProductos/${producto._id}`)}
+                        />
+                        <Trash2
+                          className="w-5 h-5 text-red-400 cursor-pointer hover:scale-110 transition"
+                          onClick={() => handleDelete(producto._id)}
+                        />
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};
 
-                        </tbody>
-                    </table>
-            }
-        </>
-
-    )
-}
-
-export default Tabla
+export default Tabla;

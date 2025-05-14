@@ -28,6 +28,16 @@ const VisualizarProductos = () => {
         consultarProducto();
     }, [id]);
 
+    const obtenerURLImagen = () => {
+        if (producto.imagen) {
+            // Si la imagen ya incluye la URL completa
+            if (producto.imagen.startsWith('http')) return producto.imagen;
+            // Si es solo el nombre del archivo
+            return `${import.meta.env.VITE_BACKEND_URL}/uploads/${producto.imagen}`;
+        }
+        return "/images/disco-de-vinilo.png";
+    };
+
     return (
         <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
             <h1 className="font-black text-4xl text-gray-500 text-center">Visualizar Producto</h1>
@@ -62,9 +72,9 @@ const VisualizarProductos = () => {
 
                         <div className="flex-1 flex justify-center">
                             <img 
-                                src="/images/disco-de-vinilo.png" 
-                                alt="Disco de vinilo" 
-                                className="h-64 w-64 rounded-lg border border-gray-300 shadow-md"
+                                src={obtenerURLImagen()} 
+                                alt="Imagen del disco" 
+                                className="h-64 w-64 rounded-lg border border-gray-300 shadow-md object-cover"
                             />
                         </div>
                     </div>

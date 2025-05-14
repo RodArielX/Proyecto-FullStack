@@ -1,73 +1,116 @@
 import { useContext } from 'react'
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
+import { FiUser, FiUsers, FiMusic, FiCalendar } from 'react-icons/fi'
+import { motion } from 'framer-motion'
 import AuthContext from '../context/AuthProvider'
 import logo_padre from '../assets/logo_padre.jpg'
-
 
 const Dashboard = () => {
     const location = useLocation()
     const urlActual = location.pathname
-
-    const{auth} = useContext(AuthContext)
-
+    const { auth } = useContext(AuthContext)
     const auntenticado = localStorage.getItem('token')
 
     return (
-        <div className='md:flex md:min-h-screen'>
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#0f0f0f] text-white">
+            {/* Bloque superior expandido */}
+            <div className="bg-[#1f1f1f] shadow-md p-4 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex-1 text-center">
+                    <h1 className="text-3xl font-extrabold text-yellow-400">
+                        PANEL ADMINISTRATIVO <span className="text-white"></span>
+                    </h1>
+                </div>
+                <div className="flex items-center gap-4">
+                    <Link
+                        to="/"
+                        onClick={() => localStorage.removeItem('token')}
+                        className="bg-red-700 hover:bg-red-900 text-white px-4 py-2 rounded-lg transition"
+                    >
+                        Salir
+                    </Link>
+                </div>
+            </div>
+            {/* Contenido principal */}
+            <div className="flex flex-1">
+                {/* Menú lateral debajo del bloque superior */}
+                <aside className="w-64 bg-[#141414] p-5 border-r border-yellow-400 hidden md:block">
+                    <div className="text-center">
+                        <h1 className="text-3xl font-extrabold text-yellow-400">EDWIN ASQUI <span className="text-white">DJ</span></h1><br />
+                        <img src={logo_padre} alt="logo" className="mx-auto mb-4 p-1 border-4 border-yellow-400 rounded-full" width={100} height={100} />
+                        <p className='text-md text-gray-300 mt-1'>🎧 Bienvenido - {auth?.nombre}</p>
+                        <p className="text-md text-gray-400 mt-1">🎚️ Rol - {auth?.rol}</p>
+                    </div>
 
-            <div className='md:w-1/5 bg-gray-800 px-5 py-4'>
+                    <ul className="mt-8 space-y-4">
+                        <li>
+                            <Link to='/dashboard' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                                <FiUser /> Perfil
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/dashboard/listarClientes' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarClientes' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                                <FiUsers /> Clientes
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/dashboard/listarProductos' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarProductos' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                                <FiMusic /> Catálogo
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/dashboard/listarReservas' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarReservas' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                                <FiCalendar /> Reservas
+                            </Link>
+                        </li>
+                    </ul>
+                </aside>
 
-                <h2 className='text-4xl font-black text-center text-slate-200'>EDWIN ASQUI DJ</h2>
+                {/* Área de contenido dinámico */}
+                <main className="relative flex-1 overflow-y-auto">
+                    {/* Imagen de fondo */}
+                    <div
+                        className="absolute inset-0 bg-cover bg-center z-0 brightness-[0.3] blur-[2px]"
+                        style={{ backgroundImage: "url('/images/Logo_Register_DJ.jpeg')" }}
+                    />
 
-                <img src={logo_padre} alt="logo-padre" className="m-auto mt-8 p-1 border-2 border-slate-500 rounded-full" width={120} height={120} />
-                <p className='text-slate-400 text-center my-4 text-sm'> <span className='bg-green-600 w-3 h-3 inline-block rounded-full'></span> Bienvenido - {auth?.nombre}</p>
-                <p className='text-slate-400 text-center my-4 text-sm'> Rol - {auth?.rol}</p>
-                <hr className="mt-5 border-slate-500" />
+                    {/* Capa oscura encima */}
+                    <div className="absolute inset-0 bg-black opacity-40 z-10" />
 
-                <ul className="mt-5">
-
-                    <li className="text-center">
-                        <Link to='/dashboard' className={`${urlActual === '/dashboard' ? 'text-slate-200 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Perfil</Link>
-                    </li>
-
-                    <li className="text-center">
-                        <Link to='/dashboard/listarClientes' className={`${urlActual === '/dashboard/listarClientes' ? 'text-slate-200 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Listar Clientes</Link>
-                    </li>
-                    <li className="text-center">
-                        <Link to='/dashboard/listarProductos' className={`${urlActual === '/dashboard/listarProductos' ? 'text-slate-200 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Listar Productos</Link>
-                    </li>
-
-                    <li className="text-center">
-                        <Link to='/dashboard/crear' className={`${urlActual === '/dashboard/crear' ? 'text-slate-100 bg-gray-900 px-3 py-2 rounded-md text-center' : 'text-slate-600'} text-xl block mt-2 hover:text-slate-600`}>Crear Productos</Link>
-                    </li>
-                </ul>
-
+                    {/* Contenido */}
+                    <div className="relative z-20 p-6">
+                        {auntenticado ? <Outlet /> : <Navigate to="/login" />}
+                    </div>
+                </main>
             </div>
 
-            <div className='flex-1 flex flex-col justify-between h-screen bg-gray-100'>
-                <div className='bg-gray-800 py-2 flex md:justify-end items-center gap-5 justify-center'>
-                    <div className='text-md font-semibold text-slate-100'>
-                        Usuario - {auth?.nombre}
-                    </div>
-                    <div>
-                        <img src="/images/headphones.png" alt="img-client" className="border-2 border-gray-600 rounded-full" width={50} height={50} />
-                    </div>
-                    <div>
-                        <Link to='/' className=" text-white mr-3 text-md block hover:bg-red-900 text-center
-                        bg-red-800 px-4 py-1 rounded-lg" onClick={()=>{localStorage.removeItem('token')}}>Salir</Link>
-                    </div>
-                </div>
-                <div className='overflow-y-scroll p-8'>
-                    {auntenticado ? <Outlet /> : <Navigate to="/login"/>}
-                </div>
-                <div className='bg-gray-800 h-12'>
-                    <p className='text-center  text-slate-100 leading-[2.9rem] underline'>&copy; 2025 Todos los derechos reservados.</p>
-                </div>
-
-            </div>
-
+            {/* Footer con visualización animada */}
+            <footer className="bg-[#141414] h-16 flex items-center justify-center relative">
+                <motion.div
+                    className="absolute bottom-0 left-0 right-0 flex justify-center gap-1"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                >
+                    {[...Array(15)].map((_, i) => (
+                        <motion.div
+                            key={i}
+                            className="w-1 rounded-full bg-yellow-400"
+                            animate={{ height: ["10%", "70%", "30%", "100%", "10%"] }}
+                            transition={{
+                                duration: 1.2,
+                                repeat: Infinity,
+                                repeatType: 'loop',
+                                delay: i * 0.1,
+                            }}
+                        />
+                    ))}
+                </motion.div>
+                <p className="text-center text-sm text-yellow-300 z-10">
+                    &copy; 2025 Edwin Asqui DJ - Todos los derechos reservados.
+                </p>
+            </footer>
         </div>
-    )   
+    )
 }
 
 export default Dashboard
