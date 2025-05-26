@@ -3,11 +3,11 @@ import { Trash2, Eye, Pencil } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
+import { FaBroom, FaCompactDisc } from 'react-icons/fa'
 
 const Tabla = () => {
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
-
   const [productos, setProductos] = useState([]);
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroArtista, setFiltroArtista] = useState("");
@@ -73,7 +73,15 @@ const Tabla = () => {
 
   return (
     <div className="bg-zinc-950 text-white p-6 rounded-2xl shadow-xl">
-      <h2 className="text-3xl font-bold text-yellow-400 mb-6">Catálogo de Discos</h2>
+      <div className="flex justify-end mb-6">
+        <button
+          onClick={() => navigate('/dashboard/crear')}
+          className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-5 py-2 rounded-xl shadow-lg transition-all flex items-center gap-3"
+        >
+          <FaCompactDisc className="text-lg" />
+          Ingresar Disco
+        </button>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
         <input
@@ -113,9 +121,10 @@ const Tabla = () => {
           <span>Mostrar agotados</span>
         </label>
         <button
-          className="bg-yellow-500 text-black px-4 py-2 rounded-md hover:bg-yellow-400 transition"
           onClick={limpiarFiltros}
+          className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-5 py-2 rounded-xl shadow-lg transition-all flex items-center gap-3 text-lg whitespace-nowrap w-fit"
         >
+          <FaBroom className="text-lg" />
           Limpiar filtros
         </button>
       </div>
@@ -173,4 +182,4 @@ const Tabla = () => {
   );
 };
 
-export default Tabla;
+export default Tabla

@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
-import { FiUser, FiUsers, FiMusic, FiCalendar } from 'react-icons/fi'
+import { FiUser, FiUsers, FiMusic, FiCalendar, FiShoppingCart } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import AuthContext from '../context/AuthProvider'
 import logo_padre from '../assets/logo_padre.jpg'
@@ -22,7 +22,7 @@ const Dashboard = () => {
                 </div>
                 <div className="flex items-center gap-4">
                     <Link
-                        to="/"
+                        to="/login"
                         onClick={() => localStorage.removeItem('token')}
                         className="bg-red-700 hover:bg-red-900 text-white px-4 py-2 rounded-lg transition"
                     >
@@ -55,6 +55,11 @@ const Dashboard = () => {
                         <li>
                             <Link to='/dashboard/listarProductos' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarProductos' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
                                 <FiMusic /> Catálogo
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/dashboard/listarCompras' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarCompras' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                                <FiShoppingCart /> Compras
                             </Link>
                         </li>
                         <li>

@@ -39,42 +39,63 @@ export const Forgot = () => {
 
     // Paso 4
     return (
-      <>
-          <ToastContainer/>
-          <div className="h-screen w-full bg-[url('/images/RecuperarContraseña_DJ.jpg')] bg-no-repeat bg-cover bg-center flex flex-col">
-              <header className="w-full flex justify-between items-center p-4 absolute top-0 left-0">
-                  <Link to="/" className="text-white text-xl font-bold">
-                      <img src="/images/dj.png" alt="Logo" className="h-10"/>
-                  </Link>
-                  <Link to="/login" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">
-                      Iniciar Sesión
-                  </Link>
-              </header>
-              <div className="flex flex-grow justify-center items-center">
-                  <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg w-full max-w-md">
-                      <h1 className="text-4xl font-semibold mb-2 text-center uppercase text-gray-500">¿Olvidaste tu contraseña?</h1>
-                      <small className="text-black-400 block my-4 text-sm">No te preocupes! Te enviaremos un email para que puedas reestablecer tu contraseña</small>
-                      
-                      <form onSubmit={handleSubmit}>
-                          <div className="mb-1">
-                              <label className="mb-2 block text-sm font-semibold">Email</label>
-                              <input name="email" onChange={handleChange} type="email" placeholder="nombre@ejemplo.com" className="block w-full rounded-md border border-gray-300 focus:border-purple-700 focus:outline-none focus:ring-1 focus:ring-purple-700 py-1 px-1.5 text-gray-500" />
-                          </div>
-                          
-                          <div className="mb-3">
-                              <button className="bg-gray-600 text-slate-300 border py-2 w-full rounded-xl mt-5 hover:scale-105 duration-300 hover:bg-gray-900 hover:text-white">Enviar email</button>
-                          </div>
-                      </form>
-                      
-                      <div className="mt-5 text-xs border-b-2 py-4 "></div>
-                      
-                      <div className="mt-3 text-sm flex justify-between items-center">
-                          <p>¿No tienes una cuenta?</p>
-                          <Link to="/register" className="py-2 px-5 bg-gray-600 text-slate-300 border rounded-xl hover:scale-110 duration-300 hover:bg-gray-900 hover:text-white">Registrate aquí</Link>
-                      </div>
-                  </div>
+    <>
+      <ToastContainer />
+      <div className="h-screen w-full bg-[url('/images/RecuperarContraseña_DJ.jpg')] bg-no-repeat bg-cover bg-center flex flex-col">
+        
+        <header className="w-full flex justify-between items-center p-4 absolute top-0 left-0">
+          <Link to="/" className="text-white text-xl font-bold">
+            <img src="/images/dj.png" alt="Logo" className="h-10" />
+          </Link>
+          <Link
+            to="/login"
+            className="py-2 px-5 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition-all hover:bg-yellow-600"
+          >
+            Iniciar Sesión
+          </Link>
+        </header>
+
+        <div className="flex flex-grow justify-center items-center">
+          <div className="bg-[#1a1a1a] bg-opacity-95 p-8 rounded-2xl shadow-xl w-full max-w-md border border-yellow-500">
+            <h1 className="text-3xl text-yellow-400 font-extrabold text-center mb-2 uppercase tracking-wider">
+              🔐 ¿Olvidaste tu Contraseña?
+            </h1>
+            <p className="text-gray-300 text-sm mb-6 text-center">
+              No te preocupes, te enviaremos un correo para que puedas restablecerla.
+            </p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-sm font-semibold text-yellow-400 mb-1">📧 Correo electrónico</label>
+                <input
+                  type="email"
+                  name="email"
+                  onChange={handleChange}
+                  placeholder="nombre@ejemplo.com"
+                  className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-[#2a2a2a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                />
               </div>
+
+              <button
+                type="submit"
+                className="w-full mt-4 py-2 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-600 transition-all duration-300"
+              >
+                ✉️ Enviar Email
+              </button>
+            </form>
+
+            <div className="mt-8 border-t border-gray-600 pt-4 text-sm flex justify-between text-gray-300">
+              <p>¿No tienes una cuenta?</p>
+              <Link
+                to="/register"
+                className="text-yellow-400 font-semibold hover:underline hover:text-yellow-500"
+              >
+                Regístrate aquí
+              </Link>
+            </div>
           </div>
-      </>
-  )  
+        </div>
+      </div>
+    </>
+  );
 }

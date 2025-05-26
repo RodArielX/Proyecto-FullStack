@@ -144,5 +144,5 @@ const TablaReservas = () => {
     );
 };
 
-export default TablaReservas;
+export default TablaReservas
 

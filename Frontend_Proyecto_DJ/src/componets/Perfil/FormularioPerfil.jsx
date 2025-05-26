@@ -97,7 +97,7 @@ const FormularioPerfil = () => {
         />
       </div>
 
-      <div className="mb-5">
+      {/*<div className="mb-5">
         <label htmlFor='email' className='block text-sm font-semibold text-yellow-400'>Email:</label>
         <input
           id='email'
@@ -108,7 +108,7 @@ const FormularioPerfil = () => {
           placeholder='nombre@ejemplo.com'
           className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
         />
-      </div>
+      </div>*/}
 
       <div className="mb-6">
         <label htmlFor='descripcion' className='block text-sm font-semibold text-yellow-400'>Descripción:</label>

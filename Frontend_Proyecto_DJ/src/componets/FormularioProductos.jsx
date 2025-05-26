@@ -18,8 +18,8 @@ export const FormularioProductos = ({ producto }) => {
     const [preview, setPreview] = useState(null);
 
     useEffect(() => {
-        if (producto?.imagenUrl) {
-            setPreview(producto.imagenUrl);
+        if (producto?.imagen) {
+            setPreview(producto.imagen);
         }
     }, [producto]);
 
@@ -71,62 +71,62 @@ export const FormularioProductos = ({ producto }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor='nombreDisco' className='text-gray-700 uppercase font-bold text-sm'>
-                    Nombre del disco:
-                </label>
+        <form
+            onSubmit={handleSubmit}
+            className="bg-[#1a1a1a] border border-yellow-500 p-6 rounded-2xl shadow-lg text-white max-w-3xl mx-auto"
+        >
+            <h2 className="text-3xl text-center text-yellow-400 font-bold mb-6 tracking-wide">
+                {producto?._id ? '💿 Editar Disco' : '🎶 Registrar Disco'}
+            </h2>
+
+            <div className="mb-5">
+                <label htmlFor='nombreDisco' className='block text-sm font-semibold text-yellow-400'>Nombre del disco:</label>
                 <input
                     id='nombreDisco'
                     type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Nombre disco'
                     name='nombreDisco'
                     value={form.nombreDisco}
                     onChange={handleChange}
+                    placeholder='Nombre del disco'
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label htmlFor='artista' className='text-gray-700 uppercase font-bold text-sm'>
-                    Nombre del artista:
-                </label>
+            <div className="mb-5">
+                <label htmlFor='artista' className='block text-sm font-semibold text-yellow-400'>Nombre del artista:</label>
                 <input
                     id='artista'
                     type="text"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Nombre del artista'
                     name='artista'
                     value={form.artista}
                     onChange={handleChange}
+                    placeholder='Artista o banda'
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label htmlFor='precio' className='text-gray-700 uppercase font-bold text-sm'>
-                    Precio:
-                </label>
+            <div className="mb-5">
+                <label htmlFor='precio' className='block text-sm font-semibold text-yellow-400'>Precio:</label>
                 <input
                     id='precio'
                     type="number"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Precio del disco'
                     name='precio'
                     value={form.precio}
                     onChange={handleChange}
+                    placeholder='Precio del disco'
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label htmlFor='genero' className='text-gray-700 uppercase font-bold text-sm'>
-                    Género:
-                </label>
+            <div className="mb-5">
+                <label htmlFor='genero' className='block text-sm font-semibold text-yellow-400'>Género:</label>
                 <select
                     id='genero'
                     name="genero"
-                    onChange={handleChange}
                     value={form.genero}
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'>
+                    onChange={handleChange}
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
+                >
                     <option value="">--- Seleccionar ---</option>
                     <option value="Clásica">Clásica</option>
                     <option value="Electrónica">Electrónica</option>
@@ -138,48 +138,45 @@ export const FormularioProductos = ({ producto }) => {
                 </select>
             </div>
 
-            <div>
-                <label htmlFor='stock' className='text-gray-700 uppercase font-bold text-sm'>
-                    Stock:
-                </label>
+            <div className="mb-5">
+                <label htmlFor='stock' className='block text-sm font-semibold text-yellow-400'>Stock:</label>
                 <input
                     id='stock'
                     type="number"
-                    className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-5'
-                    placeholder='Cantidad de discos'
                     name='stock'
                     value={form.stock}
                     onChange={handleChange}
+                    placeholder='Cantidad disponible'
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label htmlFor="imagen" className="text-gray-700 uppercase font-bold text-sm">
-                    Imagen del disco:
-                </label>
+            <div className="mb-5">
+                <label htmlFor='imagen' className='block text-sm font-semibold text-yellow-400'>Imagen del disco:</label>
                 <input
-                    id="imagen"
+                    id='imagen'
                     type="file"
                     name="imagen"
                     accept="image/*"
                     onChange={handleChange}
-                    className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md mb-3"
+                    className="mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white file:text-yellow border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                 />
                 {preview && (
                     <img
                         src={preview}
                         alt="Vista previa"
-                        className="w-48 h-48 object-cover mt-2 rounded-md border"
+                        className="w-40 h-40 object-cover mt-3 rounded-lg border-2 border-yellow-500"
                     />
                 )}
             </div>
 
             <input
                 type="submit"
-                className='bg-gray-600 w-full p-3 
-                    text-slate-300 uppercase font-bold rounded-lg 
-                    hover:bg-gray-900 cursor-pointer transition-all'
-                value={producto?._id ? 'Actualizar' : 'Registrar'} />
+                value={producto?._id ? 'Actualizar' : 'Registrar'}
+                className='w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-300 shadow-md mt-4'
+            />
         </form>
+
+
     );
 };

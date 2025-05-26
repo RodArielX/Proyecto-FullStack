@@ -23,6 +23,7 @@ import ActualizarClientes from './paginas/ActualizarClientes'
 import ListarClientes from './paginas/ListarClientes'
 import ListarReservas from './paginas/Reservas/ListarReservas'
 import VisualizarReserva from './paginas/Reservas/VisualizarReserva'
+import ListarCompras from './paginas/Compras/ListarCompras'
 
 
 
@@ -34,7 +35,7 @@ function App() {
           <TratamientosProvider>
             <Routes>
 
-              <Route index element={<LandinPage />} />
+              <Route index element={<Login />} /> {/*Aqui solo llamamos al landin page*/}
 
               <Route path='/' element={<Auth />}>
                 <Route path='login' element={<Login />} />
@@ -65,6 +66,7 @@ function App() {
                       <Route path='actualizarClientes/:id' element={<ActualizarClientes />} />
                       <Route path='listarReservas' element={<ListarReservas />} />
                       <Route path='visualizarReservas/:id' element={<VisualizarReserva />} />
+                      <Route path='listarCompras' element={<ListarCompras />} />
 
                     </Route>
                   </Routes>
