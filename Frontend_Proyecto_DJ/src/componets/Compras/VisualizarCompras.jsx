@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Mensaje from '../componets/Alertas/Mensaje';
+import Mensaje from '../Alertas/Mensaje';
 
 const VisualizarCompras = () => {
   const { id } = useParams();
@@ -40,32 +40,64 @@ const VisualizarCompras = () => {
 
       {Object.keys(compra).length !== 0 ? (
         <div className="space-y-4 text-white">
-          <p>
-            <span className="text-yellow-400 uppercase font-semibold">👤 Cliente: </span>
-            {compra.cliente?.nombre || 'N/A'}
-          </p>
+          {compra.cliente && (
+            <p>
+              <span className="text-yellow-400 uppercase font-semibold">👤 Cliente: </span>
+              {compra.cliente.nombre} ({compra.cliente.email})
+            </p>
+          )}
+
           <p>
             <span className="text-yellow-400 uppercase font-semibold">📅 Fecha de Compra: </span>
-            {new Date(compra.fecha).toLocaleString()}
+            {new Date(compra.fechaCompra).toLocaleString()}
           </p>
           <p>
             <span className="text-yellow-400 uppercase font-semibold">💳 Método de Pago: </span>
-            {compra.metodoPago}
+            {compra.tipoPago}
           </p>
+          {compra.estado && (
+            <p>
+              <span className="text-yellow-400 uppercase font-semibold">📦 Estado: </span>
+              {compra.estado}
+            </p>
+          )}
           <p>
             <span className="text-yellow-400 uppercase font-semibold">💰 Total: </span>
             ${compra.total}
           </p>
+
           <div>
             <span className="text-yellow-400 uppercase font-semibold">🛍️ Productos: </span>
             <ul className="list-disc list-inside mt-2">
               {compra.productos?.map((item, i) => (
                 <li key={i}>
-                  {item.nombreDisco} - {item.cantidad} unidades - ${item.precio} c/u
+                  {item.producto?.nombre || 'Producto eliminado'} - {item.cantidad} unidades - ${item.producto?.precio} c/u
                 </li>
               ))}
             </ul>
           </div>
+
+          {compra.comprobantePago && (
+            <div className="mt-4">
+              <p className="text-yellow-400 uppercase font-semibold">📎 Comprobante de Pago:</p>
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${compra.comprobantePago}`}
+                alt="Comprobante de pago"
+                className="w-80 h-auto border border-yellow-400 rounded-xl mt-2"
+              />
+            </div>
+          )}
+
+          {compra.comprobanteEnvio && (
+            <div className="mt-4">
+              <p className="text-yellow-400 uppercase font-semibold">🚚 Comprobante de Envío:</p>
+              <img
+                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${compra.comprobanteEnvio}`}
+                alt="Comprobante de envío"
+                className="w-80 h-auto border border-yellow-400 rounded-xl mt-2"
+              />
+            </div>
+          )}
         </div>
       ) : (
         Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
@@ -83,4 +115,4 @@ const VisualizarCompras = () => {
   );
 };
 
-export default VisualizarCompras
+export default VisualizarCompras;
