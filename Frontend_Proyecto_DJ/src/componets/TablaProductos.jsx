@@ -32,12 +32,12 @@ const Tabla = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmar = confirm("¿Estás seguro de marcar este producto como agotado?");
+    const confirmar = confirm("¿Estás seguro de eliminar este producto?");
     if (!confirmar) return;
 
     try {
       const token = localStorage.getItem("token");
-      const url = `${import.meta.env.VITE_BACKEND_URL}/producto/actualizar/${id}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/producto/eliminar/${id}`;
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -45,12 +45,13 @@ const Tabla = () => {
         },
       };
 
-      await axios.put(url, { stock: 0 }, options);
-      listarProductos();
+      await axios.delete(url, options);
+      listarProductos(); // Actualiza la tabla después de eliminar
     } catch (error) {
       console.log(error);
     }
   };
+
 
   useEffect(() => {
     listarProductos();
