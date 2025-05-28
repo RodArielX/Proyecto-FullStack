@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom'
-import { FiUser, FiUsers, FiMusic, FiCalendar, FiShoppingCart } from 'react-icons/fi'
+import { FiUser, FiUsers, FiMusic, FiCalendar, FiShoppingCart, FiTag, FiMapPin } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 import AuthContext from '../context/AuthProvider'
 import logo_padre from '../assets/logo_padre.jpg'
@@ -64,7 +64,7 @@ const Dashboard = () => {
                         </li>
                         <li>
                             <Link to='/dashboard/listarReservas' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarReservas' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
-                                <FiCalendar /> Reservas
+                                <FiMapPin /> Eventos
                             </Link>
                         </li>
                     </ul>

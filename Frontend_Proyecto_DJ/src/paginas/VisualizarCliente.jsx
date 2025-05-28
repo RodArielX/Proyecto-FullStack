@@ -44,6 +44,10 @@ const VisualizarCliente = () => {
                             {cliente.nombre} {cliente.apellido}
                         </p>
                         <p>
+                            <span className="text-yellow-400 uppercase font-semibold">🗺️ Provincia: </span>
+                            {cliente.provincia}
+                        </p>
+                        <p>
                             <span className="text-yellow-400 uppercase font-semibold">🌆 Ciudad: </span>
                             {cliente.ciudad}
                         </p>

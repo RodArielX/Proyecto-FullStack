@@ -141,7 +141,6 @@ const Tabla = () => {
                 <th className="p-3 text-left">Disco</th>
                 <th className="p-3 text-left">Artista</th>
                 <th className="p-3 text-left">Precio</th>
-                <th className="p-3 text-left">Género</th>
                 <th className="p-3 text-left">Stock</th>
                 <th className="p-3 text-center">Acciones</th>
               </tr>
@@ -153,7 +152,6 @@ const Tabla = () => {
                   <td className="p-3">{producto.nombreDisco}</td>
                   <td className="p-3">{producto.artista}</td>
                   <td className="p-3">${producto.precio}</td>
-                  <td className="p-3">{producto.genero}</td>
                   <td className="p-3">{producto.stock}</td>
                   <td className="p-3 flex justify-center space-x-4">
                     <Eye

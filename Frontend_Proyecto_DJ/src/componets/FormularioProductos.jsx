@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const FormularioProductos = ({ producto }) => {
-
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -11,11 +10,13 @@ export const FormularioProductos = ({ producto }) => {
         artista: producto?.artista || "",
         precio: producto?.precio || "",
         genero: producto?.genero || "",
+        generoOtro: producto?.generoOtro || "",  // nuevo campo para "Otro"
         stock: producto?.stock || "",
         imagen: null
     });
 
     const [preview, setPreview] = useState(null);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         if (producto?.imagen) {
@@ -32,16 +33,36 @@ export const FormularioProductos = ({ producto }) => {
         } else {
             setForm({ ...form, [name]: value });
         }
+        setError("");
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validar campos obligatorios
+        if (
+            !form.nombreDisco.trim() ||
+            !form.artista.trim() ||
+            !form.precio ||
+            !form.genero.trim() ||
+            !form.stock ||
+            (form.genero === "Otro" && !form.generoOtro.trim())
+        ) {
+            setError("Debes llenar todos los campos en este formulario.");
+            return;
+        }
 
         const formData = new FormData();
         formData.append("nombreDisco", form.nombreDisco);
         formData.append("artista", form.artista);
         formData.append("precio", form.precio);
         formData.append("genero", form.genero);
+
+        // Enviar generoPersonalizado solo si seleccionó "Otro"
+        if (form.genero === "Otro") {
+            formData.append("generoPersonalizado", form.generoOtro.trim());
+        }
+
         formData.append("stock", form.stock);
         if (form.imagen) {
             formData.append("imagen", form.imagen);
@@ -70,6 +91,7 @@ export const FormularioProductos = ({ producto }) => {
         }
     };
 
+
     return (
         <form
             onSubmit={handleSubmit}
@@ -78,6 +100,12 @@ export const FormularioProductos = ({ producto }) => {
             <h2 className="text-3xl text-center text-yellow-400 font-bold mb-6 tracking-wide">
                 {producto?._id ? '💿 Editar Disco' : '🎶 Registrar Disco'}
             </h2>
+
+            {error && (
+                <p className="mb-4 text-center text-red-500 font-semibold">
+                    {error}
+                </p>
+            )}
 
             <div className="mb-5">
                 <label htmlFor='nombreDisco' className='block text-sm font-semibold text-yellow-400'>Nombre del disco:</label>
@@ -136,6 +164,18 @@ export const FormularioProductos = ({ producto }) => {
                     <option value="Rock">Rock</option>
                     <option value="Otro">Otro</option>
                 </select>
+
+                {/* Campo extra solo si se elige "Otro" */}
+                {form.genero === "Otro" && (
+                    <input
+                        type="text"
+                        name="generoOtro"
+                        value={form.generoPersonalizado}
+                        onChange={handleChange}
+                        placeholder="Escribe el género aquí"
+                        className="mt-3 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    />
+                )}
             </div>
 
             <div className="mb-5">
@@ -176,7 +216,5 @@ export const FormularioProductos = ({ producto }) => {
                 className='w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-300 shadow-md mt-4'
             />
         </form>
-
-
     );
 };

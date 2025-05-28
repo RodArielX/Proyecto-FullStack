@@ -22,7 +22,6 @@ import VisualizarCliente from './paginas/VisualizarCliente'
 import ActualizarClientes from './paginas/ActualizarClientes'
 import ListarClientes from './paginas/ListarClientes'
 import ListarReservas from './paginas/Reservas/ListarReservas'
-import VisualizarReserva from './paginas/Reservas/VisualizarReserva'
 import ListarCompras from './paginas/Compras/ListarCompras'
 import VisualizarCompras from './componets/Compras/VisualizarCompras'
 
@@ -66,7 +65,6 @@ function App() {
                       } />
                       <Route path='actualizarClientes/:id' element={<ActualizarClientes />} />
                       <Route path='listarReservas' element={<ListarReservas />} />
-                      <Route path='visualizarReservas/:id' element={<VisualizarReserva />} />
                       <Route path='listarCompras' element={<ListarCompras />} />
                       <Route path='visualizarCompras/:id' element={<VisualizarCompras />} />
 
