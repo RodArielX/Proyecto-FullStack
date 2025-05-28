@@ -1,10 +1,10 @@
-
 import { useContext, useState } from "react"
+import { FiEye, FiEyeOff } from "react-icons/fi"
 import Mensaje from "../Alertas/Mensaje"
 import AuthContext from "../../context/AuthProvider"
+import { Eye, EyeOff } from "lucide-react"
 
 const Password = () => {
-
     const { actualizarPassword } = useContext(AuthContext)
 
     const [mensaje, setMensaje] = useState({})
@@ -14,29 +14,26 @@ const Password = () => {
         passwordnuevo: ""
     })
 
+    const [showPasswordActual, setShowPasswordActual] = useState(false)
+    const [showPasswordNuevo, setShowPasswordNuevo] = useState(false)
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (Object.values(form).includes("")) {
             setMensaje({ respuesta: "Todos los campos deben ser ingresados", tipo: false })
-            setTimeout(() => {
-                setMensaje({})
-            }, 3000);
+            setTimeout(() => setMensaje({}), 3000)
             return
         }
 
         if (form.passwordnuevo.length < 6) {
             setMensaje({ respuesta: "El password debe tener mínimo 6 carácteres", tipo: false })
-            setTimeout(() => {
-                setMensaje({})
-            }, 3000);
+            setTimeout(() => setMensaje({}), 3000)
             return
         }
 
         const resultado = await actualizarPassword(form)
         setMensaje(resultado)
-        setTimeout(() => {
-            setMensaje({})
-        }, 3000);
+        setTimeout(() => setMensaje({}), 3000)
     }
 
     const handleChange = (e) => {
@@ -60,40 +57,50 @@ const Password = () => {
             >
                 {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
 
-                <div className="mb-5">
-                    <label
-                        htmlFor="passwordactual"
-                        className="text-yellow-300 uppercase font-semibold text-sm"
-                    >
+                {/* Contraseña actual */}
+                <div className="mb-5 relative">
+                    <label htmlFor="passwordactual" className="text-yellow-300 uppercase font-semibold text-sm">
                         Contraseña actual:
                     </label>
                     <input
                         id="passwordactual"
-                        type="password"
-                        className="bg-black border border-yellow-500/30 text-yellow-200 w-full p-3 mt-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500/40"
+                        type={showPasswordActual ? "text" : "password"}
+                        className="bg-black border border-yellow-500/30 text-yellow-200 w-full p-3 mt-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500/40 pr-10"
                         placeholder="**************"
                         name="passwordactual"
                         value={form.passwordactual}
                         onChange={handleChange}
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowPasswordActual(!showPasswordActual)}
+                        className="absolute top-[56%] right-3 transform -translate-y-1/2 text-yellow-300 hover:text-yellow-100"
+                    >
+                        {showPasswordActual ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
 
-                <div className="mb-5">
-                    <label
-                        htmlFor="passwordnuevo"
-                        className="text-yellow-300 uppercase font-semibold text-sm"
-                    >
+                {/* Nueva contraseña */}
+                <div className="mb-5 relative">
+                    <label htmlFor="passwordnuevo" className="text-yellow-300 uppercase font-semibold text-sm">
                         Nueva Contraseña:
                     </label>
                     <input
                         id="passwordnuevo"
-                        type="password"
-                        className="bg-black border border-yellow-500/30 text-yellow-200 w-full p-3 mt-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500/40"
+                        type={showPasswordNuevo ? "text" : "password"}
+                        className="bg-black border border-yellow-500/30 text-yellow-200 w-full p-3 mt-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500/40 pr-10"
                         placeholder="**************"
                         name="passwordnuevo"
                         value={form.passwordnuevo}
                         onChange={handleChange}
                     />
+                    <button
+                        type="button"
+                        onClick={() => setShowPasswordNuevo(!showPasswordNuevo)}
+                        className="absolute top-[56%] right-3 transform -translate-y-1/2 text-yellow-300 hover:text-yellow-100"
+                    >
+                        {showPasswordNuevo ? <EyeOff size={20} /> : <Eye size={20} />}
+                    </button>
                 </div>
 
                 <input
@@ -103,8 +110,7 @@ const Password = () => {
                 />
             </form>
         </>
-    );
-
+    )
 }
 
 export default Password
