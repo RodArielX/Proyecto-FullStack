@@ -83,7 +83,7 @@ const ModuloEventos = () => {
               </p>
               <div className="flex justify-end gap-3">
                 <button
-                  onClick={() => navigate(`/dashboard/actualizar/${evento._id}`)}
+                  onClick={() => navigate(`/dashboard/actualizarEventos/${evento._id}`)}
                   className="text-yellow-600 hover:text-yellow-800 transition"
                   title="Editar"
                 >
@@ -105,7 +105,7 @@ const ModuloEventos = () => {
   );
 };
 
-export default ModuloEventos;
+export default ModuloEventos
 
 
 

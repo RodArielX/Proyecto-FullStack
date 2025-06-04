@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Mensaje from '../componets/Alertas/Mensaje';
 import axios from 'axios';
-import { FormularioProductos } from '../componets/FormularioProductos'
+import { FormularioEventos } from '../componets/FormularioEventos';
 
 const ActualizarEventos = () => {
 
@@ -26,22 +26,22 @@ const ActualizarEventos = () => {
                 }
                 // Respuesta al backend
                 const respuesta = await axios.get(url, options)
-                setProducto(respuesta.data)
+                setEvento(respuesta.data)
             } catch (error) {
                 console.log(error)
             }
         }
-        consultarProductos()
+        consultarEventos()
     }, [])
 
     return (
         <div className="mt-5 mb-6">
-            <h1 className="text-4xl font-black text-yellow-400 drop-shadow-glow">Catálogo</h1>
+            <h1 className="text-4xl font-black text-yellow-400 drop-shadow-glow">Eventos</h1>
             <hr className="my-4 border-yellow-300"/>
-            <p className="text-gray-300">Este módulo te permite actualizar los datos de un disco de vinilo registrado</p><br />
+            <p className="text-gray-300">Este módulo te permite actualizar los datos de un evento registrado</p><br />
 
             {
-                Object.keys(producto).length !=0 && <FormularioProductos producto={producto}/>
+                Object.keys(evento).length !=0 && <FormularioEventos evento={evento}/>
             }
           
         </div>
