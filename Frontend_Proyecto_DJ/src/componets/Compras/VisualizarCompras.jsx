@@ -13,7 +13,7 @@ const VisualizarCompras = () => {
     const consultarCompra = async () => {
       try {
         const token = localStorage.getItem('token');
-        const url = `${import.meta.env.VITE_BACKEND_URL}/compra/detalle/${id}`;
+        const url = `${import.meta.env.VITE_BACKEND_URL}/compras/detallehistorial/${id}`;
         const options = {
           headers: {
             'Content-Type': 'application/json',
@@ -33,42 +33,32 @@ const VisualizarCompras = () => {
   }, [id]);
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-[#1a1a1a] border border-yellow-500 rounded-2xl shadow-lg text-white">
+    <div className="max-w-4xl mx-auto p-6 bg-[#1a1a1a] border border-yellow-500 rounded-2xl shadow-xl text-white">
       <h1 className="font-black text-4xl text-yellow-400 text-center tracking-wide">🧾 Visualizar Compra</h1>
       <hr className="my-4 border-yellow-600" />
-      <p className="mb-6 text-center text-gray-300">Este submódulo te permite visualizar los detalles de una compra realizada</p>
+      <p className="mb-6 text-center text-gray-300">Visualiza los detalles completos de esta compra realizada por el cliente</p>
 
       {Object.keys(compra).length !== 0 ? (
         <div className="space-y-4 text-white">
           {compra.cliente && (
-            <p>
-              <span className="text-yellow-400 uppercase font-semibold">👤 Cliente: </span>
-              {compra.cliente.nombre} ({compra.cliente.email})
-            </p>
+            <div className="bg-[#262626] p-4 rounded-xl shadow">
+              <p className="text-yellow-400 font-bold">👤 Cliente</p>
+              <p>{compra.cliente.nombre} ({compra.cliente.email})</p>
+              <p>📞 {compra.cliente.telefono}</p>
+              <p>📍 {compra.cliente.direccion}</p>
+            </div>
           )}
 
-          <p>
-            <span className="text-yellow-400 uppercase font-semibold">📅 Fecha de Compra: </span>
-            {new Date(compra.fechaCompra).toLocaleString()}
-          </p>
-          <p>
-            <span className="text-yellow-400 uppercase font-semibold">💳 Método de Pago: </span>
-            {compra.tipoPago}
-          </p>
-          {compra.estado && (
-            <p>
-              <span className="text-yellow-400 uppercase font-semibold">📦 Estado: </span>
-              {compra.estado}
-            </p>
-          )}
-          <p>
-            <span className="text-yellow-400 uppercase font-semibold">💰 Total: </span>
-            ${compra.total}
-          </p>
+          <div className="bg-[#262626] p-4 rounded-xl shadow space-y-2">
+            <p><span className="text-yellow-400 font-bold">📅 Fecha:</span> {new Date(compra.fechaCompra).toLocaleString()}</p>
+            <p><span className="text-yellow-400 font-bold">💳 Pago:</span> {compra.tipoPago}</p>
+            <p><span className="text-yellow-400 font-bold">📦 Estado:</span> {compra.estado}</p>
+            <p><span className="text-yellow-400 font-bold">💰 Total:</span> ${compra.total}</p>
+          </div>
 
-          <div>
-            <span className="text-yellow-400 uppercase font-semibold">🛍️ Productos: </span>
-            <ul className="list-disc list-inside mt-2">
+          <div className="bg-[#262626] p-4 rounded-xl shadow">
+            <p className="text-yellow-400 font-bold mb-2">🛍️ Productos Comprados</p>
+            <ul className="list-disc list-inside space-y-1">
               {compra.productos?.map((item, i) => (
                 <li key={i}>
                   {item.producto?.nombre || 'Producto eliminado'} - {item.cantidad} unidades - ${item.producto?.precio} c/u
@@ -78,10 +68,10 @@ const VisualizarCompras = () => {
           </div>
 
           {compra.comprobantePago && (
-            <div className="mt-4">
-              <p className="text-yellow-400 uppercase font-semibold">📎 Comprobante de Pago:</p>
+            <div className="bg-[#262626] p-4 rounded-xl shadow">
+              <p className="text-yellow-400 font-bold">📎 Comprobante de Pago</p>
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${compra.comprobantePago}`}
+                src={compra.comprobantePago}
                 alt="Comprobante de pago"
                 className="w-80 h-auto border border-yellow-400 rounded-xl mt-2"
               />
@@ -89,10 +79,10 @@ const VisualizarCompras = () => {
           )}
 
           {compra.comprobanteEnvio && (
-            <div className="mt-4">
-              <p className="text-yellow-400 uppercase font-semibold">🚚 Comprobante de Envío:</p>
+            <div className="bg-[#262626] p-4 rounded-xl shadow">
+              <p className="text-yellow-400 font-bold">🚚 Comprobante de Envío</p>
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${compra.comprobanteEnvio}`}
+                src={compra.comprobanteEnvio}
                 alt="Comprobante de envío"
                 className="w-80 h-auto border border-yellow-400 rounded-xl mt-2"
               />
@@ -115,4 +105,4 @@ const VisualizarCompras = () => {
   );
 };
 
-export default VisualizarCompras;
+export default VisualizarCompras

@@ -63,7 +63,7 @@ const Dashboard = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link to='/dashboard/listarReservas' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarReservas' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
+                            <Link to='/dashboard/listarEventos' className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg ${urlActual === '/dashboard/listarEventos' ? 'bg-yellow-500 text-black' : 'text-gray-300 hover:text-yellow-400'}`}>
                                 <FiMapPin /> Eventos
                             </Link>
                         </li>

@@ -21,9 +21,11 @@ import VisualizarProductos from './paginas/VisualizarProductos'
 import VisualizarCliente from './paginas/VisualizarCliente'
 import ActualizarClientes from './paginas/ActualizarClientes'
 import ListarClientes from './paginas/ListarClientes'
-import ListarReservas from './paginas/Reservas/ListarReservas'
 import ListarCompras from './paginas/Compras/ListarCompras'
 import VisualizarCompras from './componets/Compras/VisualizarCompras'
+import ListarEventos from './paginas/Eventos/ListarEventos'
+import CrearEventos from './paginas/Eventos/CrearEventos'
+import ActualizarEventos from './paginas/ActualizarEventos'
 
 
 
@@ -63,8 +65,14 @@ function App() {
                           <Crear />
                         </PrivateRouteWithRole>
                       } />
+                      <Route path='crearEventos' element={
+                        <PrivateRouteWithRole>
+                          <CrearEventos />
+                        </PrivateRouteWithRole>
+                      } />
                       <Route path='actualizarClientes/:id' element={<ActualizarClientes />} />
-                      <Route path='listarReservas' element={<ListarReservas />} />
+                      <Route path='actualizarEventos/:id' element={<ActualizarEventos />} />
+                      <Route path='listarEventos' element={<ListarEventos />} />
                       <Route path='listarCompras' element={<ListarCompras />} />
                       <Route path='visualizarCompras/:id' element={<VisualizarCompras />} />
 
