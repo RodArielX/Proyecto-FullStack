@@ -6,17 +6,17 @@ import { FormularioProductos } from '../componets/FormularioProductos'
 
 const ActualizarEventos = () => {
 
-    const [producto, setProducto] = useState({})
+    const [evento, setEvento] = useState({})
 
     const { id } = useParams()
 
     useEffect(() => {
-        const consultarProductos = async () => {
+        const consultarEventos = async () => {
             try {
                 // Obtener Token
                 const token = localStorage.getItem('token')
                 // Definir Endpoint
-                const url = `${import.meta.env.VITE_BACKEND_URL}/producto/detalle/${id}`
+                const url = `${import.meta.env.VITE_BACKEND_URL}/evento/detalle/${id}`
                 // Headers
                 const options = {
                     headers: {

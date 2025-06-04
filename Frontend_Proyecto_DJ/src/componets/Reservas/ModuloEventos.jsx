@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Eye, Trash2, Pencil, Plus } from "lucide-react";
+import { Pencil, Trash2, Plus } from "lucide-react";
 import AuthContext from "../../context/AuthProvider";
 
 const ModuloEventos = () => {
@@ -51,10 +51,10 @@ const ModuloEventos = () => {
   return (
     <div className="p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Eventos</h1>
+        <h1 className="text-3xl font-bold text-gray-800">Eventos</h1>
         <button
           onClick={() => navigate("/dashboard/crearEventos")}
-          className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="flex items-center gap-2 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-xl shadow-md transition duration-300"
         >
           <Plus size={18} />
           Agregar Evento
@@ -63,35 +63,35 @@ const ModuloEventos = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {eventos.map((evento) => (
-          <div key={evento._id} className="bg-white shadow-md rounded-lg overflow-hidden">
-            {evento.imagen && (
+          <div
+            key={evento._id}
+            className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden border border-gray-200"
+          >
+            {evento.imagenEvento && (
               <img
-                src={`${import.meta.env.VITE_BACKEND_URL}/uploads/${evento.imagen}`}
-                alt={evento.nombre}
+                src={evento.imagenEvento}
+                alt={evento.nombreEvento}
                 className="w-full h-48 object-cover"
               />
             )}
             <div className="p-4">
-              <h2 className="text-xl font-semibold">{evento.nombre}</h2>
-              <p className="text-gray-600 mb-2">{evento.fecha}</p>
-              <div className="flex justify-end gap-2 mt-4">
-                <button
-                  onClick={() => navigate(`/evento/ver/${evento._id}`)}
-                  className="text-blue-600 hover:text-blue-800"
-                  title="Ver"
-                >
-                  <Eye />
-                </button>
+              <h2 className="text-xl font-semibold text-gray-800 mb-1">
+                {evento.nombreEvento}
+              </h2>
+              <p className="text-sm text-gray-600 mb-3">
+                {new Date(evento.fechaEvento).toLocaleDateString()}
+              </p>
+              <div className="flex justify-end gap-3">
                 <button
                   onClick={() => navigate(`/dashboard/actualizar/${evento._id}`)}
-                  className="text-green-600 hover:text-green-800"
+                  className="text-yellow-600 hover:text-yellow-800 transition"
                   title="Editar"
                 >
                   <Pencil />
                 </button>
                 <button
                   onClick={() => handleDelete(evento._id)}
-                  className="text-red-600 hover:text-red-800"
+                  className="text-red-600 hover:text-red-800 transition"
                   title="Eliminar"
                 >
                   <Trash2 />
@@ -106,6 +106,7 @@ const ModuloEventos = () => {
 };
 
 export default ModuloEventos;
+
 
 
 
