@@ -124,7 +124,7 @@ const Login = () => {
                         </Link>
                     </div>
 
-                    <div className="mt-6 text-sm flex justify-between items-center">
+                    {/*<div className="mt-6 text-sm flex justify-between items-center">
                         <p className="text-gray-300">¿No tienes una cuenta?</p>
                         <Link
                             to="/register"
@@ -132,7 +132,7 @@ const Login = () => {
                         >
                             Registrarse
                         </Link>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </>

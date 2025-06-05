@@ -23,7 +23,7 @@ export const Forgot = () => {
     const handleSubmit = async(e) => {
       e.preventDefault()
       try {
-        const url =`${import.meta.env.VITE_BACKEND_URL}/recuperar-password`
+        const url =`${import.meta.env.VITE_BACKEND_URL}/admin/recuperar-password`
         const respuesta = await axios.post(url, email)
         console.log(respuesta)
         toast.success(respuesta.data.msg)
@@ -84,7 +84,7 @@ export const Forgot = () => {
               </button>
             </form>
 
-            <div className="mt-8 border-t border-gray-600 pt-4 text-sm flex justify-between text-gray-300">
+            {/*<div className="mt-8 border-t border-gray-600 pt-4 text-sm flex justify-between text-gray-300">
               <p>¿No tienes una cuenta?</p>
               <Link
                 to="/register"
@@ -92,7 +92,7 @@ export const Forgot = () => {
               >
                 Regístrate aquí
               </Link>
-            </div>
+            </div>*/}
           </div>
         </div>
       </div>

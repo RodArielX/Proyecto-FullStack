@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Auth from './layout/Auth'
 import Login from './paginas/Login'
-import { LandinPage } from './paginas/LandinPage'
 import { Register } from './paginas/Register'
 import { Forgot } from './paginas/Forgot'
 import { NotFound } from './paginas/NotFound'
@@ -43,8 +42,9 @@ function App() {
                 <Route path='login' element={<Login />} />
                 <Route path='register' element={<Register />} />
                 <Route path='forgot/:id' element={<Forgot />} />
-                <Route path='confirmar/:token' element={<Confirmar />} />
-                <Route path='recuperar-password/:token' element={<Restablecer />} />
+                <Route path='cliente/confirmar/:token' element={<Confirmar />} />
+                <Route path='admin/recuperar-password/:token' element={<Restablecer />} />
+                <Route path='cliente/recuperar-password/:token' element={<Restablecer />} />
                 <Route path='*' element={<NotFound />} />
               </Route>
 

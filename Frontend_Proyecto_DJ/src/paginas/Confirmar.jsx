@@ -16,7 +16,7 @@ export const Confirmar = () => {
     // Paso 2
     const verifyToken = async () => {
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/confirmar/${token}`;
+            const url = `${import.meta.env.VITE_BACKEND_URL}/cliente/confirmar/${token}`;
 
             const respuesta = await axios.get(url)
             setMensaje({ respuesta: respuesta.data.msg, tipo: true })
@@ -50,17 +50,19 @@ export const Confirmar = () => {
                     ¡Muchas gracias!
                 </p>
                 <p className="mt-4 text-gray-300 text-lg">
-                    Tu proceso fue exitoso. Ya puedes iniciar sesión.
+                    Tu proceso fue exitoso.
+                </p><hr />
+                <p className="mt-4 text-gray-300 text-lg">
+                    Ya puedes iniciar sesión en nuestra Aplicación Móvil
                 </p>
 
-                <Link
+                {/*<Link
                     to="/login"
                     className="mt-6 py-2 px-6 bg-yellow-500 text-black font-bold rounded-xl hover:bg-yellow-600 transition-transform transform hover:scale-105"
                 >
                     Iniciar Sesión
-                </Link>
+                </Link>*/}
             </div>
         </div>
     );
-
 }

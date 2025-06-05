@@ -90,4 +90,4 @@ const VisualizarCliente = () => {
     );
 };
 
-export default VisualizarCliente;
+export default VisualizarCliente

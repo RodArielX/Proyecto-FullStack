@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import logoDog from '../assets/dj.png'
-import backgroundImage from '../assets/proyecto3.jpg' 
-import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+import logoDJ from '../assets/dj.png'
+import { Eye, EyeOff } from 'lucide-react'
+
 
 export default function Restablecer() {
-
     const navigate = useNavigate()
     const { token } = useParams()
+    const esAdmin = window.location.pathname.includes('/admin/')
     const [tokenback, setTokenback] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+
     const [form, setForm] = useState({
         password: "",
         confirmpassword: ""
@@ -26,26 +29,21 @@ export default function Restablecer() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/nuevo-password/${token}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/${esAdmin ? 'admin' : 'cliente'}/nuevo-password/${token}`
             const respuesta = await axios.post(url, form)
-            console.log(respuesta)
             toast.success(respuesta.data.msg)
         } catch (error) {
-            console.log(error)
             toast.error(error.response.data.msg)
         }
     }
 
-    
     const verifyToken = async () => {
         try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-password/${token}`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/${esAdmin ? 'admin' : 'cliente'}/recuperar-password/${token}`
             const respuesta = await axios.get(url)
-            console.log(respuesta)
             setTokenback(true)
             toast.success(respuesta.data.msg)
         } catch (error) {
-            console.log(error)
             toast.error(error.response.data.msg)
         }
     }
@@ -55,63 +53,87 @@ export default function Restablecer() {
     }, [])
 
     return (
-        <div className="relative w-full h-screen flex items-center justify-center text-white">
-            {/* Imagen de fondo con overlay */}
-            <div 
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: `url(${backgroundImage})` }}
-            >
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div> {/* Capa oscura */}
+        <>
+            <ToastContainer />
+            <div className="h-screen w-full bg-[url('/images/proyecto3.jpg')] bg-no-repeat bg-cover bg-center flex justify-center items-center">
+                <div className="bg-[#1a1a1a] bg-opacity-90 border border-yellow-500 p-8 rounded-2xl shadow-2xl w-full max-w-md text-white flex flex-col items-center">
+                    <img
+                        src={logoDJ}
+                        alt="Logo DJ"
+                        className="w-24 h-24 rounded-full border-4 border-yellow-400 mb-4 object-cover shadow-md"
+                    />
+                    <h1 className="text-3xl font-bold text-yellow-400 text-center uppercase mb-2 tracking-wide">
+                        Restablecer Contraseña
+                    </h1>
+                    <p className="text-center text-gray-300 text-sm mb-6">
+                        Ingresa tu nueva contraseña para continuar
+                    </p>
+
+                    {tokenback && (
+                        <form className="w-full" onSubmit={handleSubmit}>
+                            <div className="mb-4 relative">
+                                <label className="block text-sm font-semibold text-yellow-400 mb-1">
+                                    🔐 Nueva Contraseña
+                                </label>
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    value={form.password}
+                                    onChange={handleChange}
+                                    placeholder="Escribe tu contraseña"
+                                    className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-[#2a2a2a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3 top-[38px] text-gray-300 hover:text-yellow-400"
+                                >
+                                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
+                            </div>
+
+                            <div className="mb-6 relative">
+                                <label className="block text-sm font-semibold text-yellow-400 mb-1">
+                                    🔐 Confirmar Contraseña
+                                </label>
+                                <input
+                                    type={showConfirmPassword ? "text" : "password"}
+                                    name="confirmpassword"
+                                    value={form.confirmpassword}
+                                    onChange={handleChange}
+                                    placeholder="Repite tu contraseña"
+                                    className="w-full px-3 py-2 rounded-lg border border-gray-600 bg-[#2a2a2a] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute right-3 top-[38px] text-gray-300 hover:text-yellow-400"
+                                >
+                                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                </button>
+                            </div>
+
+
+                            <div className="flex flex-col gap-4">
+                                <button
+                                    type="submit"
+                                    className="w-full py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-xl transition-transform hover:scale-105 duration-300"
+                                >
+                                     Confirmar
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => navigate("/login")}
+                                    className="w-full py-3 bg-transparent border border-yellow-400 text-yellow-400 rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300"
+                                >
+                                     Iniciar Sesión
+                                </button>
+                            </div>
+                        </form>
+                    )}
+                </div>
             </div>
-
-            <div className="relative z-10 flex flex-col items-center p-6 bg-black bg-opacity-70 rounded-xl shadow-lg">
-                <ToastContainer />
-                <h1 className="text-4xl font-extrabold mb-4 text-center uppercase text-neon-purple drop-shadow-neon">Restablecer Contraseña</h1>
-                <small className="text-gray-400 block my-4 text-lg">Ingresa tu nueva contraseña</small>
-                <img 
-                    className="object-cover h-48 w-48 rounded-full border-4 border-solid border-neon-pink shadow-neon transition duration-500 hover:scale-105" 
-                    src={logoDog} 
-                    alt="DJ logo"
-                />
-
-                {tokenback &&
-                    <form className='w-full max-w-md mt-6' onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <label className="block text-neon-green text-lg font-semibold mb-2">Nueva Contraseña</label>
-                            <input 
-                                type="password" 
-                                placeholder="Escribe tu contraseña" 
-                                className="block w-full rounded-md border border-gray-600 focus:border-neon-pink focus:outline-none focus:ring-2 focus:ring-neon-pink py-2 px-3 text-gray-300 bg-gray-800 transition duration-300"
-                                value={form.password || ""}
-                                name='password'
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label className="block text-neon-green text-lg font-semibold mb-2">Confirmar Contraseña</label>
-                            <input 
-                                type="password" 
-                                placeholder="Repite tu contraseña" 
-                                className="block w-full rounded-md border border-gray-600 focus:border-neon-blue focus:outline-none focus:ring-2 focus:ring-neon-blue py-2 px-3 text-gray-300 bg-gray-800 transition duration-300"
-                                value={form.confirmpassword || ""}
-                                name='confirmpassword'
-                                onChange={handleChange}
-                            />
-                        </div>
-
-                        <div className="flex flex-col gap-4">
-                            <button className="bg-neon-blue text-white py-3 rounded-xl font-bold hover:scale-105 transition transform duration-300 shadow-lg hover:shadow-neon-blue">Enviar</button>
-                            <button 
-                                className="bg-neon-purple text-white py-3 rounded-xl font-bold hover:scale-105 transition transform duration-300 shadow-lg hover:shadow-neon-purple"
-                                onClick={()=>{navigate("/login")}}
-                            >
-                                Iniciar Sesión
-                            </button>
-                        </div>
-                    </form>
-                }
-            </div>
-        </div>
+        </>
     )
 }
+

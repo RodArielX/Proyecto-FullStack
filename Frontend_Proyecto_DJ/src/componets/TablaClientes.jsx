@@ -161,4 +161,4 @@ const TablaClientes = () => {
   );
 };
 
-export default TablaClientes;
+export default TablaClientes
