@@ -104,13 +104,16 @@ const Tabla = () => {
           value={filtroGenero}
           onChange={(e) => setFiltroGenero(e.target.value)}
         >
-          <option value="">Todos los géneros</option>
-          <option value="Clásica">Clásica</option>
+          <option value="">--- Seleccionar ---</option>
           <option value="Electrónica">Electrónica</option>
-          <option value="Hip-Hop">Hip-Hop</option>
-          <option value="Jazz">Jazz</option>
-          <option value="Pop">Pop</option>
+          <option value="House">House</option>
+          <option value="Tecno">Tecno</option>
           <option value="Rock">Rock</option>
+          <option value="Pop">Pop</option>
+          <option value="Raggae">Raggae</option>
+          <option value="Funk">Funk</option>
+          <option value="Hip-Hop">Hip-Hop</option>
+          <option value="Latino">Latino</option>
           <option value="Otro">Otro</option>
         </select>
         <label className="flex items-center space-x-2 text-white">
