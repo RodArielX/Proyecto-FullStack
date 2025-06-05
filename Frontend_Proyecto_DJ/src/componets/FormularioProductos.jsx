@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ImagePlus } from "lucide-react";
 
 export const FormularioProductos = ({ producto }) => {
     const navigate = useNavigate();
@@ -192,15 +193,20 @@ export const FormularioProductos = ({ producto }) => {
             </div>
 
             <div className="mb-5">
-                <label htmlFor='imagen' className='block text-sm font-semibold text-yellow-400'>Imagen del disco:</label>
-                <input
-                    id='imagen'
-                    type="file"
-                    name="imagen"
-                    accept="image/*"
-                    onChange={handleChange}
-                    className="mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white file:text-yellow border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                />
+                <label className="block text-sm font-semibold text-yellow-400 mb-1">
+                    Imagen del disco:
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-white transition w-fit">
+                    <ImagePlus size={18} />
+                    Seleccionar imagen
+                    <input
+                        type="file"
+                        name="imagenEvento"
+                        accept="image/*"
+                        onChange={handleChange}
+                        className="hidden"
+                    />
+                </label>
                 {preview && (
                     <img
                         src={preview}

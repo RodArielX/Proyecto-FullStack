@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ImagePlus } from "lucide-react";
 
 export const FormularioEventos = ({ evento }) => {
     const navigate = useNavigate();
@@ -68,102 +69,78 @@ export const FormularioEventos = ({ evento }) => {
         } catch (error) {
             console.error("Error al guardar evento:", error);
         }
-
-        /*if (evento?._id) {
-            await axios.put(
-                `${import.meta.env.VITE_BACKEND_URL}/evento/actualizar/${evento._id}`,
-                formData,
-                config
-            );
-            alert("Evento actualizado con éxito");
-        } else {
-            await axios.post(
-                `${import.meta.env.VITE_BACKEND_URL}/evento/registro`,
-                formData,
-                config
-            );
-            alert("Evento registrado con éxito");
-        }
-        navigate("/admin/eventos");
-    } catch (err) {
-        const msg =
-            err.response?.data?.msg ||
-            "Error al registrar/actualizar el evento. Inténtalo de nuevo.";
-        setError(msg);
-    }*/
     };
-
 
     return (
         <form
             onSubmit={handleSubmit}
-            className="max-w-xl mx-auto bg-[#111827] p-6 rounded-2xl shadow-lg space-y-6 border border-gray-700"
+            className="bg-[#1a1a1a] border border-yellow-500 p-6 rounded-2xl shadow-lg text-white max-w-3xl mx-auto"
         >
-            <h2 className="text-2xl font-semibold text-white text-center">
-                {evento?._id ? "Editar Evento" : "Registrar Nuevo Evento"}
+            <h2 className="text-3xl text-center text-yellow-400 font-bold mb-6 tracking-wide">
+                {evento?._id ? '🎤 Editar Evento' : '📅 Registrar Evento'}
             </h2>
 
             {error && (
-                <p className="text-red-500 bg-red-100 rounded p-2 text-sm">{error}</p>
+                <p className="mb-4 text-center text-red-500 font-semibold">
+                    {error}
+                </p>
             )}
 
-            <div>
-                <label className="block text-sm text-yellow-400 mb-1">
-                    Nombre del evento
-                </label>
+            <div className="mb-5">
+                <label htmlFor='nombreEvento' className='block text-sm font-semibold text-yellow-400'>Nombre del evento:</label>
                 <input
+                    id='nombreEvento'
                     type="text"
-                    name="nombreEvento"
+                    name='nombreEvento'
                     value={form.nombreEvento}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    required
+                    placeholder='Nombre del evento'
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label className="block text-sm text-yellow-400 mb-1">
-                    Fecha del evento
-                </label>
+            <div className="mb-5">
+                <label htmlFor='fechaEvento' className='block text-sm font-semibold text-yellow-400'>Fecha del evento:</label>
                 <input
+                    id='fechaEvento'
                     type="date"
-                    name="fechaEvento"
+                    name='fechaEvento'
                     value={form.fechaEvento}
                     onChange={handleChange}
-                    className="w-full p-2 rounded-lg bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                    required
+                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 />
             </div>
 
-            <div>
-                <label className="block text-sm text-yellow-400 mb-1">
-                    Imagen del evento
+            <div className="mb-5">
+                <label className="block text-sm font-semibold text-yellow-400 mb-1">
+                    Imagen del evento:
                 </label>
-                <input
-                    type="file"
-                    name="imagenEvento"
-                    accept="image/*"
-                    onChange={handleChange}
-                    className="w-full p-2 rounded-lg bg-gray-800 text-white border border-gray-600 cursor-pointer"
-                />
+                <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-white transition w-fit">
+                    <ImagePlus size={18} />
+                    Seleccionar imagen
+                    <input
+                        type="file"
+                        name="imagenEvento"
+                        accept="image/*"
+                        onChange={handleChange}
+                        className="hidden"
+                    />
+                </label>
                 {preview && (
                     <img
                         src={preview}
                         alt="Vista previa"
-                        className="w-full mt-3 rounded-lg shadow-md border border-gray-700"
+                        className="w-40 h-40 object-cover mt-3 rounded-lg border-2 border-yellow-500"
                     />
                 )}
             </div>
 
-            <button
+            <input
                 type="submit"
-                className="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 rounded-lg transition duration-200 shadow-md"
-            >
-                {evento?._id ? "Actualizar evento" : "Registrar evento"}
-            </button>
+                value={evento?._id ? 'Actualizar Evento' : 'Registrar Evento'}
+                className='w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-300 shadow-md mt-4'
+            />
         </form>
     );
 };
-
-
 

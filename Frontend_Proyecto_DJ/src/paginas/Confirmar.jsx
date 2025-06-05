@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Logo_DJ } from "/images/Logo_Register_DJ.jpeg";
+import  Logo_Register_DJ  from "/images/Logo_Register_DJ.jpeg";
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Mensaje from '../componets/Alertas/Mensaje'
@@ -40,7 +40,7 @@ export const Confirmar = () => {
             )}
 
             <img
-                src={Logo_DJ}
+                src={Logo_Register_DJ}
                 alt="logo"
                 className="object-cover h-60 w-60 md:h-72 md:w-72 rounded-full border-4 border-yellow-500 shadow-lg"
             />
