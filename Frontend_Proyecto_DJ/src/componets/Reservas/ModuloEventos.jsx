@@ -51,7 +51,6 @@ const ModuloEventos = () => {
   return (
     <div className="p-6 bg-[#0e0e0e] min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-4xl font-extrabold text-yellow-400 tracking-wide drop-shadow-lg">Eventos</h1>
         <button
           onClick={() => navigate("/dashboard/crearEventos")}
           className="flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-5 py-3 rounded-2xl shadow-lg transition duration-300 hover:scale-105"

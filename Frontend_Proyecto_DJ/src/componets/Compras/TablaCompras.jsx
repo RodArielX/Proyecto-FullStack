@@ -47,7 +47,7 @@ const TablaCompras = () => {
       .toLowerCase()
       .includes(filtroCliente.toLowerCase());
     const coincidePago = filtroMetodoPago
-      ? c.tipoPago.toLowerCase() === filtroMetodoPago.toLowerCase()
+      ? c.formaPago.toLowerCase() === filtroMetodoPago.toLowerCase()
       : true;
     return coincideCliente && coincidePago;
   });
@@ -96,7 +96,7 @@ const TablaCompras = () => {
             <table className="min-w-full bg-zinc-900 text-white shadow-md rounded-xl overflow-hidden">
               <thead className="bg-yellow-500 text-black">
                 <tr>
-                  <th className="p-3 text-left">#</th>
+                  <th className="p-3 text-left">#</th>  
                   <th className="p-3 text-left">Cliente</th>
                   <th className="p-3 text-left">Total</th>
                   <th className="p-3 text-left">Método de Pago</th>
@@ -113,7 +113,7 @@ const TablaCompras = () => {
                     <td className="p-3">{index + 1}</td>
                     <td className="p-3">{compra.cliente?.nombre || "Tú"}</td>
                     <td className="p-3">${compra.total.toFixed(2)}</td>
-                    <td className="p-3 capitalize">{compra.tipoPago}</td>
+                    <td className="p-3 capitalize">{compra.formaPago}</td>
                     <td className="p-3">
                       {new Date(compra.fechaCompra).toLocaleDateString()}
                     </td>

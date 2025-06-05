@@ -157,12 +157,15 @@ export const FormularioProductos = ({ producto }) => {
                     className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                 >
                     <option value="">--- Seleccionar ---</option>
-                    <option value="Clásica">Clásica</option>
                     <option value="Electrónica">Electrónica</option>
-                    <option value="Hip-Hop">Hip-Hop</option>
-                    <option value="Jazz">Jazz</option>
-                    <option value="Pop">Pop</option>
+                    <option value="House">House</option>
+                    <option value="Tecno">Tecno</option>
                     <option value="Rock">Rock</option>
+                    <option value="Pop">Pop</option>
+                    <option value="Raggae">Raggae</option>
+                    <option value="Funk">Funk</option>
+                    <option value="Hip-Hop">Hip-Hop</option>
+                    <option value="Latino">Latino</option>
                     <option value="Otro">Otro</option>
                 </select>
 

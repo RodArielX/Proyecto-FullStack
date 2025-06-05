@@ -51,7 +51,7 @@ const VisualizarCompras = () => {
 
           <div className="bg-[#262626] p-4 rounded-xl shadow space-y-2">
             <p><span className="text-yellow-400 font-bold">📅 Fecha:</span> {new Date(compra.fechaCompra).toLocaleString()}</p>
-            <p><span className="text-yellow-400 font-bold">💳 Pago:</span> {compra.tipoPago}</p>
+            <p><span className="text-yellow-400 font-bold">💳 Pago:</span> {compra.formaPago}</p>
             <p><span className="text-yellow-400 font-bold">📦 Estado:</span> {compra.estado}</p>
             <p><span className="text-yellow-400 font-bold">💰 Total:</span> ${compra.total}</p>
           </div>
@@ -61,7 +61,7 @@ const VisualizarCompras = () => {
             <ul className="list-disc list-inside space-y-1">
               {compra.productos?.map((item, i) => (
                 <li key={i}>
-                  {item.producto?.nombre || 'Producto eliminado'} - {item.cantidad} unidades - ${item.producto?.precio} c/u
+                  {item.nombre || 'Producto eliminado'} - {item.cantidad} unidades - ${item.producto?.precio} c/u
                 </li>
               ))}
             </ul>
