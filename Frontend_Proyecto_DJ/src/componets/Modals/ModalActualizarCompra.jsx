@@ -112,5 +112,5 @@ const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
   );
 };
 
-export default ActualizarCompraModal;
+export default ActualizarCompraModal
 

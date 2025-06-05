@@ -152,4 +152,4 @@ const TablaCompras = () => {
   );
 };
 
-export default TablaCompras;
+export default TablaCompras
