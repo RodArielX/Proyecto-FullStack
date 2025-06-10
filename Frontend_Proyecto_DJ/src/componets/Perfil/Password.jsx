@@ -14,6 +14,13 @@ const Password = () => {
         passwordnuevo: ""
     })
 
+    const validarPoliticaPassword = (password) => {
+        const regex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^()_\-])[A-Za-z\d@$!%*?&.#^()_\-]{8,}$/;
+        return regex.test(password);
+    };
+
+
     const [showPasswordActual, setShowPasswordActual] = useState(false)
     const [showPasswordNuevo, setShowPasswordNuevo] = useState(false)
 
@@ -25,9 +32,13 @@ const Password = () => {
             return
         }
 
-        if (form.passwordnuevo.length < 6) {
-            setMensaje({ respuesta: "El password debe tener mínimo 6 carácteres", tipo: false })
-            setTimeout(() => setMensaje({}), 3000)
+        if (!validarPoliticaPassword(form.passwordnuevo)) {
+            setMensaje({
+                respuesta:
+                    "La contraseña debe tener mínimo 8 caracteres, incluir una mayúscula, una minúscula, un número y un carácter especial.",
+                tipo: false
+            })
+            setTimeout(() => setMensaje({}), 4000)
             return
         }
 
@@ -101,6 +112,9 @@ const Password = () => {
                     >
                         {showPasswordNuevo ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
+                    <p className="text-sm text-gray-400 mt-2">
+                        🔒 Usa al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.
+                    </p>
                 </div>
 
                 <input

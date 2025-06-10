@@ -5,7 +5,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import logoDJ from '../assets/dj.png'
 import { Eye, EyeOff } from 'lucide-react'
 
-
 export default function Restablecer() {
     const navigate = useNavigate()
     const { token } = useParams()
@@ -19,6 +18,12 @@ export default function Restablecer() {
         confirmpassword: ""
     })
 
+    const validarPoliticaPassword = (password) => {
+        const regex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^()_\-])[A-Za-z\d@$!%*?&.#^()_\-]{8,}$/;
+        return regex.test(password);
+    }
+
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -28,6 +33,22 @@ export default function Restablecer() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if (!form.password || !form.confirmpassword) {
+            toast.error("Todos los campos son obligatorios")
+            return
+        }
+
+        if (!validarPoliticaPassword(form.password)) {
+            toast.error("La contraseña debe tener al menos 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.")
+            return
+        }
+
+        if (form.password !== form.confirmpassword) {
+            toast.error("Las contraseñas no coinciden")
+            return
+        }
+
         try {
             const url = `${import.meta.env.VITE_BACKEND_URL}/${esAdmin ? 'admin' : 'cliente'}/nuevo-password/${token}`
             const respuesta = await axios.post(url, form)
@@ -90,6 +111,9 @@ export default function Restablecer() {
                                 >
                                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                                 </button>
+                                <p className="text-xs text-gray-400 mt-2">
+                                    La contraseña debe tener mínimo 8 caracteres, una mayúscula, una minúscula, un número y un símbolo.
+                                </p>
                             </div>
 
                             <div className="mb-6 relative">
@@ -113,21 +137,25 @@ export default function Restablecer() {
                                 </button>
                             </div>
 
-
                             <div className="flex flex-col gap-4">
                                 <button
                                     type="submit"
                                     className="w-full py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-xl transition-transform hover:scale-105 duration-300"
                                 >
-                                     Confirmar
+                                    Confirmar
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => navigate("/login")}
                                     className="w-full py-3 bg-transparent border border-yellow-400 text-yellow-400 rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300"
                                 >
-                                     Iniciar Sesión
+                                    Iniciar Sesión
                                 </button>
+                                <p className="text-xs text-gray-400 mt-2">
+                                    Si eres adminstrador da clic en el boton "Iniciar Sesion", si eres uno de nuestros clientes ingresa a la aplicacion movil
+                                    con tu nueva contraseña
+                                </p>
+                                
                             </div>
                         </form>
                     )}
@@ -136,4 +164,3 @@ export default function Restablecer() {
         </>
     )
 }
-
