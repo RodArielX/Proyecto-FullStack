@@ -2,7 +2,6 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Auth from './layout/Auth'
 import Login from './paginas/Login'
-import { Register } from './paginas/Register'
 import { Forgot } from './paginas/Forgot'
 import { NotFound } from './paginas/NotFound'
 import Dashboard from './layout/Dashboard'
@@ -12,7 +11,6 @@ import { Confirmar } from './paginas/Confirmar'
 import Restablecer from './paginas/Restablecer'
 import { AuthProvider } from './context/AuthProvider'
 import { PrivateRoute } from './routes/PrivateRoute'
-import { TratamientosProvider } from './context/TratamientoProvider'
 import PrivateRouteWithRole from './routes/PrivateRouteWithRole'
 import ProductoListar from './paginas/ProductoListar'
 import ActualizarProductos from './paginas/ActualizarProductos'
@@ -33,14 +31,12 @@ function App() {
     <>
       <BrowserRouter>
         <AuthProvider>
-          <TratamientosProvider>
             <Routes>
 
               <Route index element={<Login />} /> {/*Aqui solo llamamos al landin page*/}
 
               <Route path='/' element={<Auth />}>
                 <Route path='login' element={<Login />} />
-                <Route path='register' element={<Register />} />
                 <Route path='forgot/:id' element={<Forgot />} />
                 <Route path='cliente/confirmar/:token' element={<Confirmar />} />
                 <Route path='admin/recuperar-password/:token' element={<Restablecer />} />
@@ -82,7 +78,6 @@ function App() {
                 </PrivateRoute>
               }></Route>
             </Routes>
-          </TratamientosProvider>
 
         </AuthProvider>
 

@@ -46,7 +46,9 @@ const Login = () => {
             setAuth(respuesta.data)
             console.log(respuesta)
             toast.success("Login exitoso")
-            navigate('/dashboard')
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 2000)
 
         } catch (error) {
             console.log(error)

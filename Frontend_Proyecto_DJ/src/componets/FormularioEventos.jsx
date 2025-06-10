@@ -68,6 +68,16 @@ export const FormularioEventos = ({ evento }) => {
             navigate('/dashboard/listarEventos');
         } catch (error) {
             console.error("Error al guardar evento:", error);
+
+            if (
+                error.response &&
+                error.response.data &&
+                error.response.data.msg
+            ) {
+                setError(error.response.data.msg);
+            } else {
+                setError("Error al guardar el evento. Intenta nuevamente.");
+            }
         }
     };
 

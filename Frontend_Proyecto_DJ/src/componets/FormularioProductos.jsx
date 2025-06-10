@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ImagePlus } from "lucide-react";
 
+
 export const FormularioProductos = ({ producto }) => {
     const navigate = useNavigate();
 
@@ -87,6 +88,7 @@ export const FormularioProductos = ({ producto }) => {
             }
 
             navigate('/dashboard/listarProductos');
+
         } catch (error) {
             console.error("Error al guardar producto:", error);
         }

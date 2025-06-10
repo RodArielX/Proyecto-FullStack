@@ -1,5 +1,5 @@
 import React from 'react'
-import ModuloEventos from '../../componets/Reservas/ModuloEventos'
+import ModuloEventos from '../../componets/Eventos/ModuloEventos'
 
 const ListarEventos = () => {
     return (
