@@ -12,6 +12,7 @@ const Tabla = () => {
   const [filtroNombre, setFiltroNombre] = useState("");
   const [filtroArtista, setFiltroArtista] = useState("");
   const [filtroGenero, setFiltroGenero] = useState("");
+  const [filtroStock, setFiltroStock] = useState("");
   const [mostrarAgotados, setMostrarAgotados] = useState(true);
 
   const listarProductos = async () => {
@@ -62,13 +63,17 @@ const Tabla = () => {
     const coincideArtista = p.artista.toLowerCase().includes(filtroArtista.toLowerCase());
     const coincideGenero = filtroGenero ? p.genero === filtroGenero : true;
     const mostrar = mostrarAgotados ? true : p.stock > 0;
-    return coincideNombre && coincideArtista && coincideGenero && mostrar;
+    const coincideStock = filtroStock === ''
+    ? true
+    : String(p.stock).toLowerCase().includes(filtroStock.toLowerCase())
+    return coincideNombre && coincideArtista && coincideGenero && mostrar && coincideStock;
   });
 
   const limpiarFiltros = () => {
     setFiltroNombre("");
     setFiltroArtista("");
     setFiltroGenero("");
+    setFiltroStock("");
     setMostrarAgotados(true);
   };
 
@@ -99,7 +104,14 @@ const Tabla = () => {
           value={filtroArtista}
           onChange={(e) => setFiltroArtista(e.target.value)}
         />
-        <select
+        <input
+          type="number"
+          placeholder="Buscar por stock"
+          className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white placeholder-gray-400"
+          value={filtroStock}
+          onChange={(e) => setFiltroStock(e.target.value)}
+        />
+        {/*<select
           className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white"
           value={filtroGenero}
           onChange={(e) => setFiltroGenero(e.target.value)}
@@ -115,7 +127,7 @@ const Tabla = () => {
           <option value="Hip-Hop">Hip-Hop</option>
           <option value="Latino">Latino</option>
           <option value="Otro">Otro</option>
-        </select>
+        </select>*/}
         <label className="flex items-center space-x-2 text-white">
           <input
             type="checkbox"
