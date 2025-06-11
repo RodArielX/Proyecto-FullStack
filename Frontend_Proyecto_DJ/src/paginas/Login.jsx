@@ -32,26 +32,26 @@ const Login = () => {
 
     // Paso 3
     const handleSubmit = async (e) => {
-    e.preventDefault()
-    const url = `${import.meta.env.VITE_BACKEND_URL}/admin/login`
+        e.preventDefault()
+        const url = `${import.meta.env.VITE_BACKEND_URL}/admin/login`
 
-    try {
-        const respuesta = await axios.post(url, form)
-        localStorage.setItem('token', respuesta.data.token)
-        localStorage.setItem('rol', "Administrador")
+        try {
+            const respuesta = await axios.post(url, form)
+            localStorage.setItem('token', respuesta.data.token)
+            localStorage.setItem('rol', "Administrador")
 
-        setAuth(respuesta.data)
-        console.log(respuesta)
-        toast.success("Login exitoso")
-        setTimeout(() => {
-            navigate('/dashboard')
-        }, 2000)
+            setAuth(respuesta.data)
+            console.log(respuesta)
+            toast.success("Login exitoso")
+            setTimeout(() => {
+                navigate('/dashboard')
+            }, 2000)
 
-    } catch (error) {
-        console.log(error)
-        toast.error(error.response?.data?.msg || "Error al iniciar sesión")
+        } catch (error) {
+            console.log(error)
+            toast.error(error.response?.data?.msg || "Error al iniciar sesión")
+        }
     }
-}
 
     return (
         <>
@@ -77,8 +77,9 @@ const Login = () => {
                         </div>
 
                         <div className="mb-4 relative">
-                            <label className="block text-sm font-semibold text-yellow-400 mb-1">🔒 Contraseña</label>
+                            <label htmlFor='password' className="block text-sm font-semibold text-yellow-400 mb-1">🔒 Contraseña</label>
                             <input
+                                id='password'
                                 type={mostrarPassword ? "text" : "password"}
                                 name="password"
                                 value={form.password}
@@ -89,7 +90,8 @@ const Login = () => {
                             <button
                                 type="button"
                                 onClick={() => setMostrarPassword(!mostrarPassword)}
-                                className="absolute top-9 right-3 text-gray-400 hover:text-yellow-400"
+                                className="absolute top-9 right-3 text-gray-400 hover:text-yellow-400 p-2"
+                                aria-label={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                             >
                                 {mostrarPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </button>
