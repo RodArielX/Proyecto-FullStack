@@ -32,31 +32,26 @@ const Login = () => {
 
     // Paso 3
     const handleSubmit = async (e) => {
-        e.preventDefault()
-        const url = form.email.includes("rodarielx16")
-            ? `${import.meta.env.VITE_BACKEND_URL}/admin/login`
-            : `${import.meta.env.VITE_BACKEND_URL}/cliente/login`
-        try {
-            const respuesta = await axios.post(url, form)
-            localStorage.setItem('token', respuesta.data.token)
+    e.preventDefault()
+    const url = `${import.meta.env.VITE_BACKEND_URL}/admin/login`
 
-            const rol = form.email.includes("rodarielx16") ? "Administrador" : "Cliente";
-            localStorage.setItem('rol', rol)
+    try {
+        const respuesta = await axios.post(url, form)
+        localStorage.setItem('token', respuesta.data.token)
+        localStorage.setItem('rol', "Administrador")
 
-            setAuth(respuesta.data)
-            console.log(respuesta)
-            toast.success("Login exitoso")
-            setTimeout(() => {
-                navigate('/dashboard')
-            }, 2000)
+        setAuth(respuesta.data)
+        console.log(respuesta)
+        toast.success("Login exitoso")
+        setTimeout(() => {
+            navigate('/dashboard')
+        }, 2000)
 
-        } catch (error) {
-            console.log(error)
-            toast.error(error.response.data.msg)
-
-        }
-
+    } catch (error) {
+        console.log(error)
+        toast.error(error.response?.data?.msg || "Error al iniciar sesión")
     }
+}
 
     return (
         <>
