@@ -90,7 +90,7 @@ const Login = () => {
                             <button
                                 type="button"
                                 onClick={() => setMostrarPassword(!mostrarPassword)}
-                                className="absolute top-9 right-3 text-gray-400 hover:text-yellow-400 p-2"
+                                className="absolute top-9 right-3 text-gray-400 hover:text-yellow-400"
                                 aria-label={mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
                             >
                                 {mostrarPassword ? <EyeOff size={20} /> : <Eye size={20} />}
