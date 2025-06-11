@@ -12,10 +12,7 @@ const AuthProvider = ({ children }) => {
     const perfil = async (token) => {
         try {
             // Obtener el rol del usuario desde el localStorage
-            const rol = localStorage.getItem('rol')
-            const url = rol === "Administrador"
-            ? `${import.meta.env.VITE_BACKEND_URL}/admin/perfil`
-            : `${import.meta.env.VITE_BACKEND_URL}/cliente/perfil`
+            const url = `${import.meta.env.VITE_BACKEND_URL}/admin/perfil`
 
             const options = {
                 headers: {
