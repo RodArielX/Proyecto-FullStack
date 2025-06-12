@@ -11,6 +11,8 @@ const TablaCompras = () => {
   const [compras, setCompras] = useState([]);
   const [filtroCliente, setFiltroCliente] = useState("");
   const [filtroMetodoPago, setFiltroMetodoPago] = useState("");
+  const [filtroEstado, setFiltroEstado] = useState("");
+
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [compraSeleccionada, setCompraSeleccionada] = useState(null);
@@ -49,12 +51,16 @@ const TablaCompras = () => {
     const coincidePago = filtroMetodoPago
       ? c.formaPago.toLowerCase() === filtroMetodoPago.toLowerCase()
       : true;
-    return coincideCliente && coincidePago;
+    const coincideEstado = filtroEstado
+      ? c.estado?.toLowerCase() === filtroEstado.toLowerCase()
+      : true;
+    return coincideCliente && coincidePago && coincideEstado;
   });
 
   const limpiarFiltros = () => {
     setFiltroCliente("");
     setFiltroMetodoPago("");
+    setFiltroEstado("")
   };
 
   return (
@@ -81,6 +87,15 @@ const TablaCompras = () => {
             <option value="efectivo">Efectivo</option>
             <option value="transferencia">Transferencia</option>
           </select>
+          <select
+            className="p-2 rounded-md bg-zinc-900 border border-zinc-700 text-white"
+            value={filtroEstado}
+            onChange={(e) => setFiltroEstado(e.target.value)}
+          >
+            <option value="">Estado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="enviado">Enviado</option>
+          </select>
           <button
             onClick={limpiarFiltros}
             className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold px-5 py-2 rounded-xl shadow-lg transition-all text-lg"
@@ -96,11 +111,12 @@ const TablaCompras = () => {
             <table className="min-w-full bg-zinc-900 text-white shadow-md rounded-xl overflow-hidden">
               <thead className="bg-yellow-500 text-black">
                 <tr>
-                  <th className="p-3 text-left">#</th>  
+                  <th className="p-3 text-left">#</th>
                   <th className="p-3 text-left">Cliente</th>
                   <th className="p-3 text-left">Total</th>
                   <th className="p-3 text-left">Método de Pago</th>
                   <th className="p-3 text-left">Fecha</th>
+                  <th className="p-3 text-left">Estado</th>
                   <th className="p-3 text-center">Acciones</th>
                 </tr>
               </thead>
@@ -117,6 +133,7 @@ const TablaCompras = () => {
                     <td className="p-3">
                       {new Date(compra.fechaCompra).toLocaleDateString()}
                     </td>
+                    <td className="p-3 capitalize">{compra.estado}</td>
                     <td className="p-3 flex justify-center gap-4">
                       <Eye
                         className="w-5 h-5 text-green-400 cursor-pointer hover:scale-110 transition"

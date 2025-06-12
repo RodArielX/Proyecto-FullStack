@@ -50,10 +50,16 @@ const VisualizarCompras = () => {
           )}
 
           <div className="bg-[#262626] p-4 rounded-xl shadow space-y-2">
-            <p><span className="text-yellow-400 font-bold">📅 Fecha:</span> {new Date(compra.fechaCompra).toLocaleString()}</p>
+            <p><span className="text-yellow-400 font-bold">📅 Fecha Compra:</span> {new Date(compra.fechaCompra).toLocaleString()}</p>
             <p><span className="text-yellow-400 font-bold">💳 Pago:</span> {compra.formaPago}</p>
             <p><span className="text-yellow-400 font-bold">📦 Estado:</span> {compra.estado}</p>
             <p><span className="text-yellow-400 font-bold">💰 Total:</span> ${compra.total}</p>
+            {compra.estado === 'enviado' && (
+              <p>
+                <span className="text-yellow-400 font-bold">📅 Fecha Envío:</span>{' '}
+                {new Date(compra.fechaEnvio).toLocaleString()}
+              </p>
+            )}
           </div>
 
           <div className="bg-[#262626] p-4 rounded-xl shadow">

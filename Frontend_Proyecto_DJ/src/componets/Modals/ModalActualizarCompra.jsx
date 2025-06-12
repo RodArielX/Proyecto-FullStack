@@ -85,10 +85,26 @@ const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
           </div>
 
           {preview && (
-            <div className="mt-2 text-center">
-              <img src={preview} alt="Vista previa" className="w-40 h-auto mx-auto rounded-lg border border-yellow-400" />
+            <div className="relative mt-2 text-center inline-block">
+              <img
+                src={preview}
+                alt="Vista previa"
+                className="w-40 h-auto mx-auto rounded-lg border border-yellow-400"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setImagen(null);
+                  setPreview(null);
+                }}
+                className="absolute top-1 right-1 bg-black bg-opacity-60 text-red-500 hover:text-red-700 font-bold px-2 rounded-full"
+                title="Eliminar imagen"
+              >
+                ❌
+              </button>
             </div>
           )}
+
 
           <div className="flex justify-between mt-6">
             <button
