@@ -44,9 +44,6 @@ export const Forgot = () => {
       <div className="h-screen w-full bg-[url('/images/RecuperarContraseña_DJ.jpg')] bg-no-repeat bg-cover bg-center flex flex-col">
         
         <header className="w-full flex justify-between items-center p-4 absolute top-0 left-0">
-          <Link to="/" className="text-white text-xl font-bold">
-            <img src="/images/dj.png" alt="Logo" className="h-10" />
-          </Link>
           <Link
             to="/login"
             className="py-2 px-5 bg-yellow-500 text-black font-bold rounded-xl hover:scale-105 transition-all hover:bg-yellow-600"
