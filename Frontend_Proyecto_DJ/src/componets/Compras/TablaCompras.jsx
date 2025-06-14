@@ -113,9 +113,8 @@ const TablaCompras = () => {
                 <tr>
                   <th className="p-3 text-left">#</th>
                   <th className="p-3 text-left">Cliente</th>
-                  <th className="p-3 text-left">Total</th>
                   <th className="p-3 text-left">Método de Pago</th>
-                  <th className="p-3 text-left">Fecha</th>
+                  <th className="p-3 text-left">Fecha Compra</th>
                   <th className="p-3 text-left">Estado</th>
                   <th className="p-3 text-center">Acciones</th>
                 </tr>
@@ -128,7 +127,7 @@ const TablaCompras = () => {
                   >
                     <td className="p-3">{index + 1}</td>
                     <td className="p-3">{compra.cliente?.nombre || "Tú"}</td>
-                    <td className="p-3">${compra.total.toFixed(2)}</td>
+                    {/*<td className="p-3">${compra.total.toFixed(2)}</td>*/}
                     <td className="p-3 capitalize">{compra.formaPago}</td>
                     <td className="p-3">
                       {new Date(compra.fechaCompra).toLocaleDateString()}

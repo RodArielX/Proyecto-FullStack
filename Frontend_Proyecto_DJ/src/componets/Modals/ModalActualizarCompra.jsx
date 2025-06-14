@@ -58,6 +58,8 @@ const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
       <div className="bg-[#1a1a1a] border border-yellow-500 rounded-2xl p-6 w-[90%] max-w-lg shadow-2xl text-white relative">
         <h2 className="text-2xl font-bold text-yellow-400 text-center mb-4">Actualizar Compra</h2>
+            <p className="text-gray-300">Recuerda que si el método de pago es en efectivo solo debes marcar en "enviado"</p><br />
+
 
         {Object.keys(mensaje).length > 0 && (
           <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>

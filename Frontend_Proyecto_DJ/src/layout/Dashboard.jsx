@@ -72,16 +72,13 @@ const Dashboard = () => {
 
                 {/* Área de contenido dinámico */}
                 <main className="relative flex-1 overflow-y-auto">
-                    {/* Imagen de fondo */}
                     <div
                         className="absolute inset-0 bg-cover bg-center z-0 brightness-[0.3] blur-[2px]"
                         style={{ backgroundImage: "url('/images/Logo_Register_DJ.jpeg')" }}
                     />
 
-                    {/* Capa oscura encima */}
                     <div className="absolute inset-0 bg-black opacity-40 z-10" />
 
-                    {/* Contenido */}
                     <div className="relative z-20 p-6">
                         {auntenticado ? <Outlet /> : <Navigate to="/login" />}
                     </div>

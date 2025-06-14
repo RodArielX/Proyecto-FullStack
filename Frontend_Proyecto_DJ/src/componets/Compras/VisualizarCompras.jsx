@@ -46,6 +46,9 @@ const VisualizarCompras = () => {
               <p>{compra.cliente.nombre} ({compra.cliente.email})</p>
               <p>📞 {compra.cliente.telefono}</p>
               <p>📍 {compra.cliente.direccion}</p>
+              <p>🪪 {compra.direccionEnvio?.cedula}</p>
+              <p className="text-yellow-400 font-bold">👤 Recibe</p>
+              <p>{compra.direccionEnvio?.nombreRecibe}</p>
             </div>
           )}
 

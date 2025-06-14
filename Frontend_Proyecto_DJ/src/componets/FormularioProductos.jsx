@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ImagePlus } from "lucide-react";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const FormularioProductos = ({ producto }) => {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export const FormularioProductos = ({ producto }) => {
         artista: producto?.artista || "",
         precio: producto?.precio || "",
         genero: producto?.genero || "",
-        generoOtro: producto?.generoOtro || "",  // nuevo campo para "Otro"
+        generoOtro: producto?.generoOtro || "",
         stock: producto?.stock || "",
         imagen: null
     });
@@ -41,7 +42,6 @@ export const FormularioProductos = ({ producto }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validar campos obligatorios
         if (
             !form.nombreDisco.trim() ||
             !form.artista.trim() ||
@@ -60,7 +60,6 @@ export const FormularioProductos = ({ producto }) => {
         formData.append("precio", form.precio);
         formData.append("genero", form.genero);
 
-        // Enviar generoPersonalizado solo si seleccionó "Otro"
         if (form.genero === "Otro") {
             formData.append("generoPersonalizado", form.generoOtro.trim());
         }
@@ -91,141 +90,153 @@ export const FormularioProductos = ({ producto }) => {
 
         } catch (error) {
             console.error("Error al guardar producto:", error);
+            toast.error("Error al guardar el producto. Verifica los datos o la imagen e intenta nuevamente.", {
+                position: "top-right",
+                autoClose: 3000,
+                theme: "light"
+            });
+            toast.error("Recuerda que el formato de la imagen debe ser png, jpg o jpeg de origen.", {
+                position: "top-right",
+                autoClose: 3000,
+                theme: "light"
+            });
         }
     };
 
-
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="bg-[#1a1a1a] border border-yellow-500 p-6 rounded-2xl shadow-lg text-white max-w-3xl mx-auto"
-        >
-            <h2 className="text-3xl text-center text-yellow-400 font-bold mb-6 tracking-wide">
-                {producto?._id ? '💿 Editar Disco' : '🎶 Registrar Disco'}
-            </h2>
+        <>
+            <form
+                onSubmit={handleSubmit}
+                className="bg-[#1a1a1a] border border-yellow-500 p-6 rounded-2xl shadow-lg text-white max-w-3xl mx-auto"
+            >
+                <h2 className="text-3xl text-center text-yellow-400 font-bold mb-6 tracking-wide">
+                    {producto?._id ? '💿 Editar Disco' : '🎶 Registrar Disco'}
+                </h2>
 
-            {error && (
-                <p className="mb-4 text-center text-red-500 font-semibold">
-                    {error}
-                </p>
-            )}
+                {error && (
+                    <p className="mb-4 text-center text-red-500 font-semibold">
+                        {error}
+                    </p>
+                )}
 
-            <div className="mb-5">
-                <label htmlFor='nombreDisco' className='block text-sm font-semibold text-yellow-400'>Nombre del disco:</label>
-                <input
-                    id='nombreDisco'
-                    type="text"
-                    name='nombreDisco'
-                    value={form.nombreDisco}
-                    onChange={handleChange}
-                    placeholder='Nombre del disco'
-                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
-                />
-            </div>
-
-            <div className="mb-5">
-                <label htmlFor='artista' className='block text-sm font-semibold text-yellow-400'>Nombre del artista:</label>
-                <input
-                    id='artista'
-                    type="text"
-                    name='artista'
-                    value={form.artista}
-                    onChange={handleChange}
-                    placeholder='Artista o banda'
-                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
-                />
-            </div>
-
-            <div className="mb-5">
-                <label htmlFor='precio' className='block text-sm font-semibold text-yellow-400'>Precio:</label>
-                <input
-                    id='precio'
-                    type="number"
-                    name='precio'
-                    value={form.precio}
-                    onChange={handleChange}
-                    placeholder='Precio del disco'
-                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
-                />
-            </div>
-
-            <div className="mb-5">
-                <label htmlFor='genero' className='block text-sm font-semibold text-yellow-400'>Género:</label>
-                <select
-                    id='genero'
-                    name="genero"
-                    value={form.genero}
-                    onChange={handleChange}
-                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
-                >
-                    <option value="">--- Seleccionar ---</option>
-                    <option value="Electrónica">Electrónica</option>
-                    <option value="House">House</option>
-                    <option value="Tecno">Tecno</option>
-                    <option value="Rock">Rock</option>
-                    <option value="Pop">Pop</option>
-                    <option value="Raggae">Raggae</option>
-                    <option value="Funk">Funk</option>
-                    <option value="Hip-Hop">Hip-Hop</option>
-                    <option value="Latino">Latino</option>
-                    <option value="Otro">Otro</option>
-                </select>
-
-                {/* Campo extra solo si se elige "Otro" */}
-                {form.genero === "Otro" && (
+                <div className="mb-5">
+                    <label htmlFor='nombreDisco' className='block text-sm font-semibold text-yellow-400'>Nombre del disco:</label>
                     <input
+                        id='nombreDisco'
                         type="text"
-                        name="generoOtro"
-                        value={form.generoPersonalizado}
+                        name='nombreDisco'
+                        value={form.nombreDisco}
                         onChange={handleChange}
-                        placeholder="Escribe el género aquí"
-                        className="mt-3 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                        placeholder='Nombre del disco'
+                        className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
-                )}
-            </div>
+                </div>
 
-            <div className="mb-5">
-                <label htmlFor='stock' className='block text-sm font-semibold text-yellow-400'>Stock:</label>
-                <input
-                    id='stock'
-                    type="number"
-                    name='stock'
-                    value={form.stock}
-                    onChange={handleChange}
-                    placeholder='Cantidad disponible'
-                    className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
-                />
-            </div>
-
-            <div className="mb-5">
-                <label className="block text-sm font-semibold text-yellow-400 mb-1">
-                    Imagen del disco:
-                </label>
-                <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-white transition w-fit">
-                    <ImagePlus size={18} />
-                    Seleccionar imagen
+                <div className="mb-5">
+                    <label htmlFor='artista' className='block text-sm font-semibold text-yellow-400'>Nombre del artista:</label>
                     <input
-                        type="file"
-                        name="imagenEvento"
-                        accept="image/*"
+                        id='artista'
+                        type="text"
+                        name='artista'
+                        value={form.artista}
                         onChange={handleChange}
-                        className="hidden"
+                        placeholder='Artista o banda'
+                        className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
                     />
-                </label>
-                {preview && (
-                    <img
-                        src={preview}
-                        alt="Vista previa"
-                        className="w-40 h-40 object-cover mt-3 rounded-lg border-2 border-yellow-500"
-                    />
-                )}
-            </div>
+                </div>
 
-            <input
-                type="submit"
-                value={producto?._id ? 'Actualizar' : 'Registrar'}
-                className='w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-300 shadow-md mt-4'
-            />
-        </form>
+                <div className="mb-5">
+                    <label htmlFor='precio' className='block text-sm font-semibold text-yellow-400'>Precio:</label>
+                    <input
+                        id='precio'
+                        type="number"
+                        name='precio'
+                        value={form.precio}
+                        onChange={handleChange}
+                        placeholder='Precio del disco'
+                        className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor='genero' className='block text-sm font-semibold text-yellow-400'>Género:</label>
+                    <select
+                        id='genero'
+                        name="genero"
+                        value={form.genero}
+                        onChange={handleChange}
+                        className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
+                    >
+                        <option value="">--- Seleccionar ---</option>
+                        <option value="Electrónica">Electrónica</option>
+                        <option value="House">House</option>
+                        <option value="Tecno">Tecno</option>
+                        <option value="Rock">Rock</option>
+                        <option value="Pop">Pop</option>
+                        <option value="Raggae">Raggae</option>
+                        <option value="Funk">Funk</option>
+                        <option value="Hip-Hop">Hip-Hop</option>
+                        <option value="Latino">Latino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+
+                    {form.genero === "Otro" && (
+                        <input
+                            type="text"
+                            name="generoOtro"
+                            value={form.generoPersonalizado}
+                            onChange={handleChange}
+                            placeholder="Escribe el género aquí"
+                            className="mt-3 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                        />
+                    )}
+                </div>
+
+                <div className="mb-5">
+                    <label htmlFor='stock' className='block text-sm font-semibold text-yellow-400'>Stock:</label>
+                    <input
+                        id='stock'
+                        type="number"
+                        name='stock'
+                        value={form.stock}
+                        onChange={handleChange}
+                        placeholder='Cantidad disponible'
+                        className='mt-1 w-full p-2 rounded-lg bg-[#2c2c2c] text-white placeholder-gray-500 border border-yellow-500 focus:outline-none focus:ring-2 focus:ring-yellow-400'
+                    />
+                </div>
+
+                <div className="mb-5">
+                    <label className="block text-sm font-semibold text-yellow-400 mb-1">
+                        Imagen del disco:
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-xl text-white transition w-fit">
+                        <ImagePlus size={18} />
+                        Seleccionar imagen
+                        <input
+                            type="file"
+                            name="imagenEvento"
+                            accept="image/*"
+                            onChange={handleChange}
+                            className="hidden"
+                        />
+                    </label>
+                    {preview && (
+                        <img
+                            src={preview}
+                            alt="Vista previa"
+                            className="w-40 h-40 object-cover mt-3 rounded-lg border-2 border-yellow-500"
+                        />
+                    )}
+                </div>
+
+                <input
+                    type="submit"
+                    value={producto?._id ? 'Actualizar' : 'Registrar'}
+                    className='w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-lg transition duration-300 shadow-md mt-4'
+                />
+            </form>
+
+            <ToastContainer />
+        </>
     );
 };
