@@ -44,7 +44,7 @@ const TablaCompras = () => {
   }, []);
 
   const comprasFiltradas = compras.filter((c) => {
-    const nombreCliente = c.cliente?.nombre || "Tú";
+    const nombreCliente = c.nombreCliente || "Tú";
     const coincideCliente = nombreCliente
       .toLowerCase()
       .includes(filtroCliente.toLowerCase());
@@ -126,7 +126,7 @@ const TablaCompras = () => {
                     className="border-b border-zinc-800 hover:bg-zinc-800"
                   >
                     <td className="p-3">{index + 1}</td>
-                    <td className="p-3">{compra.cliente?.nombre || "Tú"}</td>
+                    <td className="p-3">{compra.nombreCliente || "Tú"}</td>
                     {/*<td className="p-3">${compra.total.toFixed(2)}</td>*/}
                     <td className="p-3 capitalize">{compra.formaPago}</td>
                     <td className="p-3">
