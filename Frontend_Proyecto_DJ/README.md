@@ -1,30 +1,19 @@
-# Plantilla para proyectos de react
-
-Landing Page
-------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-1.png)
-
+# EDWIN ASQUI DJ
 
 Login
 ------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-2.png)
-
-Register
-------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-3.png)
+![image](https://github.com/user-attachments/assets/a27b5aed-ecb5-4828-8b64-d43906137938)
 
 Forgot Password
 ------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-4.png)
+![image](https://github.com/user-attachments/assets/60afaedc-05e6-4864-b58e-e433f6372ff6)
+
 
 Confirm email
 ------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-6.png)
 
-Not Found
-------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-5.png)
 
 Dashboard
 ------
-![Image text](https://raw.githubusercontent.com/Byrontosh/Plantilla-App-Demo/main/src/assets/fondos/captura-7.png)
+![image](https://github.com/user-attachments/assets/992c6ac2-3fe1-4718-977d-66cc7513c8af)
+
