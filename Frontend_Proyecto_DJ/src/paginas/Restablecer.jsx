@@ -144,19 +144,29 @@ export default function Restablecer() {
                                 >
                                     Confirmar
                                 </button>
-                                <button
-                                    type="button"
-                                    onClick={() => navigate("/login")}
-                                    className="w-full py-3 bg-transparent border border-yellow-400 text-yellow-400 rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300"
-                                >
-                                    Iniciar Sesión
-                                </button>
-                                <p className="text-xs text-gray-400 mt-2">
-                                    Si eres adminstrador da clic en el boton "Iniciar Sesion", si eres uno de nuestros clientes ingresa a la aplicacion movil
-                                    con tu nueva contraseña
-                                </p>
-                                
+
+                                {esAdmin && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            onClick={() => navigate("/login")}
+                                            className="w-full py-3 bg-transparent border border-yellow-400 text-yellow-400 rounded-xl hover:bg-yellow-500 hover:text-black transition-all duration-300"
+                                        >
+                                            Iniciar Sesión
+                                        </button>
+                                        <p className="text-xs text-gray-400 mt-2">
+                                            Si eres administrador da clic en el botón "Iniciar Sesión".
+                                        </p>
+                                    </>
+                                )}
+
+                                {!esAdmin && (
+                                    <p className="text-xs text-gray-400 mt-2">
+                                        Si eres uno de nuestros clientes, ingresa a la aplicación móvil con tu nueva contraseña.
+                                    </p>
+                                )}
                             </div>
+
                         </form>
                     )}
                 </div>

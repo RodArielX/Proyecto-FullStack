@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Mensaje from '../Alertas/Mensaje';
 
-const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
+const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
   const [estado, setEstado] = useState(false);
   const [imagen, setImagen] = useState(null);
   const [preview, setPreview] = useState(null);
   const [mensaje, setMensaje] = useState({});
   const [subiendo, setSubiendo] = useState(false);
+
+  // Si sube imagen en transferencia, cambiar estado a "enviado" automáticamente
+  useEffect(() => {
+    if (formaPago !== "efectivo" && imagen) {
+      setEstado(true);
+    }
+  }, [imagen, formaPago]);
 
   const handleImagen = (e) => {
     const file = e.target.files[0];
@@ -58,55 +65,65 @@ const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
     <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50">
       <div className="bg-[#1a1a1a] border border-yellow-500 rounded-2xl p-6 w-[90%] max-w-lg shadow-2xl text-white relative">
         <h2 className="text-2xl font-bold text-yellow-400 text-center mb-4">Actualizar Compra</h2>
-            <p className="text-gray-300">Recuerda que si el método de pago es en efectivo solo debes marcar en "enviado"</p><br />
-
+        <p className="text-gray-300">
+          {formaPago === 'efectivo'
+            ? 'Pago en efectivo: solo debes marcar como enviado.'
+            : 'Pago por transferencia: sube el comprobante para cambiar a enviado automáticamente.'}
+        </p>
+        <br />
 
         {Object.keys(mensaje).length > 0 && (
           <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={estado}
-              onChange={(e) => setEstado(e.target.checked)}
-              className="accent-yellow-400"
-            />
-            <span>Marcar como <strong>enviado</strong></span>
-          </label>
-
-          <div>
-            <label className="block mb-1 text-yellow-400 font-medium">📎 Subir comprobante de envío:</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImagen}
-              className="bg-black border border-yellow-400 rounded p-2 w-full"
-            />
-          </div>
-
-          {preview && (
-            <div className="relative mt-2 text-center inline-block">
-              <img
-                src={preview}
-                alt="Vista previa"
-                className="w-40 h-auto mx-auto rounded-lg border border-yellow-400"
+          {formaPago === 'efectivo' && (
+            <label className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={estado}
+                onChange={(e) => setEstado(e.target.checked)}
+                className="accent-yellow-400"
               />
-              <button
-                type="button"
-                onClick={() => {
-                  setImagen(null);
-                  setPreview(null);
-                }}
-                className="absolute top-1 right-1 bg-black bg-opacity-60 text-red-500 hover:text-red-700 font-bold px-2 rounded-full"
-                title="Eliminar imagen"
-              >
-                ❌
-              </button>
-            </div>
+              <span>Marcar como <strong>enviado</strong></span>
+            </label>
           )}
 
+          {formaPago !== 'efectivo' && (
+            <>
+              <div>
+                <label className="block mb-1 text-yellow-400 font-medium">📎 Subir comprobante de envío:</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImagen}
+                  className="bg-black border border-yellow-400 rounded p-2 w-full"
+                />
+              </div>
+
+              {preview && (
+                <div className="relative mt-2 text-center inline-block">
+                  <img
+                    src={preview}
+                    alt="Vista previa"
+                    className="w-40 h-auto mx-auto rounded-lg border border-yellow-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setImagen(null);
+                      setPreview(null);
+                      setEstado(false); // volver a estado pendiente si elimina imagen
+                    }}
+                    className="absolute top-1 right-1 bg-black bg-opacity-60 text-red-500 hover:text-red-700 font-bold px-2 rounded-full"
+                    title="Eliminar imagen"
+                  >
+                    ❌
+                  </button>
+                </div>
+              )}
+            </>
+          )}
 
           <div className="flex justify-between mt-6">
             <button
@@ -131,4 +148,3 @@ const ActualizarCompraModal = ({ compraId, onClose, onUpdate }) => {
 };
 
 export default ActualizarCompraModal
-

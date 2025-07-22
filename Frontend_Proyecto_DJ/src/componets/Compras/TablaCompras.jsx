@@ -18,9 +18,13 @@ const TablaCompras = () => {
   const [compraSeleccionada, setCompraSeleccionada] = useState(null);
 
   const abrirModal = (compra) => {
-    setCompraSeleccionada(compra);
+    setCompraSeleccionada({
+      id: compra._id,
+      formaPago: compra.formaPago,
+    });
     setMostrarModal(true);
   };
+
 
   const listarCompras = async () => {
     try {
@@ -156,7 +160,8 @@ const TablaCompras = () => {
       {/* Modal usar componente externo */}
       {mostrarModal && compraSeleccionada && (
         <ActualizarCompraModal
-          compraId={compraSeleccionada._id}
+          compraId={compraSeleccionada.id}
+          formaPago={compraSeleccionada.formaPago}
           onClose={() => setMostrarModal(false)}
           onUpdate={() => {
             listarCompras();
