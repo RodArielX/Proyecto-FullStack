@@ -4,10 +4,37 @@ import Mensaje from '../Alertas/Mensaje';
 
 const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
   const [estado, setEstado] = useState(false);
+  const [bloquearEstado, setBloquearEstado] = useState(false);
   const [imagen, setImagen] = useState(null);
   const [preview, setPreview] = useState(null);
   const [mensaje, setMensaje] = useState({});
   const [subiendo, setSubiendo] = useState(false);
+
+  // Consultar el estado actual de la compra usando la ruta detallehistorial
+  useEffect(() => {
+    const obtenerCompra = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/compras/detallehistorial/${compraId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        if (data.estado === 'enviado') {
+          setEstado(true);
+          setBloquearEstado(true);
+        }
+      } catch (error) {
+        setMensaje({ respuesta: 'Error al obtener estado actual de la compra', tipo: false });
+      }
+    };
+
+    obtenerCompra();
+  }, [compraId]);
 
   // Si sube imagen en transferencia, cambiar estado a "enviado" automáticamente
   useEffect(() => {
@@ -82,10 +109,17 @@ const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
               <input
                 type="checkbox"
                 checked={estado}
+                disabled={bloquearEstado}
                 onChange={(e) => setEstado(e.target.checked)}
-                className="accent-yellow-400"
+                className="accent-yellow-400 cursor-pointer"
               />
-              <span>Marcar como <strong>enviado</strong></span>
+              <span>
+                {bloquearEstado ? (
+                  <span className="text-green-400 font-semibold">Compra ya enviada</span>
+                ) : (
+                  <>Marcar como <strong>enviado</strong></>
+                )}
+              </span>
             </label>
           )}
 
@@ -98,6 +132,7 @@ const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
                   accept="image/*"
                   onChange={handleImagen}
                   className="bg-black border border-yellow-400 rounded p-2 w-full"
+                  disabled={bloquearEstado}
                 />
               </div>
 
@@ -113,10 +148,11 @@ const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
                     onClick={() => {
                       setImagen(null);
                       setPreview(null);
-                      setEstado(false); // volver a estado pendiente si elimina imagen
+                      setEstado(false);
                     }}
                     className="absolute top-1 right-1 bg-black bg-opacity-60 text-red-500 hover:text-red-700 font-bold px-2 rounded-full"
                     title="Eliminar imagen"
+                    disabled={bloquearEstado}
                   >
                     ❌
                   </button>
@@ -135,7 +171,7 @@ const ActualizarCompraModal = ({ compraId, formaPago, onClose, onUpdate }) => {
             </button>
             <button
               type="submit"
-              disabled={subiendo}
+              disabled={subiendo || bloquearEstado}
               className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-4 py-2 rounded-xl"
             >
               {subiendo ? 'Actualizando...' : 'Guardar cambios'}
